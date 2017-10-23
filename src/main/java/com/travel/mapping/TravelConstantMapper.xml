@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.travel.dao.TravelConstantMapper" >
+  <resultMap id="BaseResultMap" type="com.travel.model.TravelConstant" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="constant_id" property="constantId" jdbcType="VARCHAR" />
+    <result column="constant_flg" property="constantFlg" jdbcType="CHAR" />
+    <result column="constant_val" property="constantVal" jdbcType="VARCHAR" />
+    <result column="del_flg" property="delFlg" jdbcType="CHAR" />
+    <result column="create_id" property="createId" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_id" property="updateId" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, constant_id, constant_flg, constant_val, del_flg, create_id, create_time, update_id, 
+    update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from travel_constant
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from travel_constant
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.travel.model.TravelConstant" >
+    insert into travel_constant (id, constant_id, constant_flg, 
+      constant_val, del_flg, create_id, 
+      create_time, update_id, update_time
+      )
+    values (#{id,jdbcType=INTEGER}, #{constantId,jdbcType=VARCHAR}, #{constantFlg,jdbcType=CHAR}, 
+      #{constantVal,jdbcType=VARCHAR}, #{delFlg,jdbcType=CHAR}, #{createId,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateId,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.travel.model.TravelConstant" >
+    insert into travel_constant
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="constantId != null" >
+        constant_id,
+      </if>
+      <if test="constantFlg != null" >
+        constant_flg,
+      </if>
+      <if test="constantVal != null" >
+        constant_val,
+      </if>
+      <if test="delFlg != null" >
+        del_flg,
+      </if>
+      <if test="createId != null" >
+        create_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateId != null" >
+        update_id,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="constantId != null" >
+        #{constantId,jdbcType=VARCHAR},
+      </if>
+      <if test="constantFlg != null" >
+        #{constantFlg,jdbcType=CHAR},
+      </if>
+      <if test="constantVal != null" >
+        #{constantVal,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlg != null" >
+        #{delFlg,jdbcType=CHAR},
+      </if>
+      <if test="createId != null" >
+        #{createId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateId != null" >
+        #{updateId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.travel.model.TravelConstant" >
+    update travel_constant
+    <set >
+      <if test="constantId != null" >
+        constant_id = #{constantId,jdbcType=VARCHAR},
+      </if>
+      <if test="constantFlg != null" >
+        constant_flg = #{constantFlg,jdbcType=CHAR},
+      </if>
+      <if test="constantVal != null" >
+        constant_val = #{constantVal,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlg != null" >
+        del_flg = #{delFlg,jdbcType=CHAR},
+      </if>
+      <if test="createId != null" >
+        create_id = #{createId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateId != null" >
+        update_id = #{updateId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.travel.model.TravelConstant" >
+    update travel_constant
+    set constant_id = #{constantId,jdbcType=VARCHAR},
+      constant_flg = #{constantFlg,jdbcType=CHAR},
+      constant_val = #{constantVal,jdbcType=VARCHAR},
+      del_flg = #{delFlg,jdbcType=CHAR},
+      create_id = #{createId,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_id = #{updateId,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

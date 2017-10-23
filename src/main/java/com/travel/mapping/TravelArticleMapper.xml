@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.travel.dao.TravelArticleMapper" >
+  <resultMap id="BaseResultMap" type="com.travel.model.TravelArticle" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="article_id" property="articleId" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="author_account" property="authorAccount" jdbcType="VARCHAR" />
+    <result column="time" property="time" jdbcType="TIMESTAMP" />
+    <result column="article_class" property="articleClass" jdbcType="CHAR" />
+    <result column="praise" property="praise" jdbcType="INTEGER" />
+    <result column="stamp" property="stamp" jdbcType="INTEGER" />
+    <result column="top_flg" property="topFlg" jdbcType="CHAR" />
+    <result column="adopt_flg" property="adoptFlg" jdbcType="CHAR" />
+    <result column="adopt_reason" property="adoptReason" jdbcType="VARCHAR" />
+    <result column="del_flg" property="delFlg" jdbcType="CHAR" />
+    <result column="create_id" property="createId" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_id" property="updateId" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.travel.model.TravelArticle" extends="BaseResultMap" >
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, article_id, title, author_account, time, article_class, praise, stamp, top_flg, 
+    adopt_flg, adopt_reason, del_flg, create_id, create_time, update_id, update_time
+  </sql>
+  <sql id="Blob_Column_List" >
+    content
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from travel_article
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from travel_article
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.travel.model.TravelArticle" >
+    insert into travel_article (id, article_id, title, 
+      author_account, time, article_class, 
+      praise, stamp, top_flg, 
+      adopt_flg, adopt_reason, del_flg, 
+      create_id, create_time, update_id, 
+      update_time, content)
+    values (#{id,jdbcType=INTEGER}, #{articleId,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
+      #{authorAccount,jdbcType=VARCHAR}, #{time,jdbcType=TIMESTAMP}, #{articleClass,jdbcType=CHAR}, 
+      #{praise,jdbcType=INTEGER}, #{stamp,jdbcType=INTEGER}, #{topFlg,jdbcType=CHAR}, 
+      #{adoptFlg,jdbcType=CHAR}, #{adoptReason,jdbcType=VARCHAR}, #{delFlg,jdbcType=CHAR}, 
+      #{createId,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateId,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{content,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.travel.model.TravelArticle" >
+    insert into travel_article
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="articleId != null" >
+        article_id,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="authorAccount != null" >
+        author_account,
+      </if>
+      <if test="time != null" >
+        time,
+      </if>
+      <if test="articleClass != null" >
+        article_class,
+      </if>
+      <if test="praise != null" >
+        praise,
+      </if>
+      <if test="stamp != null" >
+        stamp,
+      </if>
+      <if test="topFlg != null" >
+        top_flg,
+      </if>
+      <if test="adoptFlg != null" >
+        adopt_flg,
+      </if>
+      <if test="adoptReason != null" >
+        adopt_reason,
+      </if>
+      <if test="delFlg != null" >
+        del_flg,
+      </if>
+      <if test="createId != null" >
+        create_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateId != null" >
+        update_id,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="articleId != null" >
+        #{articleId,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="authorAccount != null" >
+        #{authorAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null" >
+        #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="articleClass != null" >
+        #{articleClass,jdbcType=CHAR},
+      </if>
+      <if test="praise != null" >
+        #{praise,jdbcType=INTEGER},
+      </if>
+      <if test="stamp != null" >
+        #{stamp,jdbcType=INTEGER},
+      </if>
+      <if test="topFlg != null" >
+        #{topFlg,jdbcType=CHAR},
+      </if>
+      <if test="adoptFlg != null" >
+        #{adoptFlg,jdbcType=CHAR},
+      </if>
+      <if test="adoptReason != null" >
+        #{adoptReason,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlg != null" >
+        #{delFlg,jdbcType=CHAR},
+      </if>
+      <if test="createId != null" >
+        #{createId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateId != null" >
+        #{updateId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.travel.model.TravelArticle" >
+    update travel_article
+    <set >
+      <if test="articleId != null" >
+        article_id = #{articleId,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="authorAccount != null" >
+        author_account = #{authorAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null" >
+        time = #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="articleClass != null" >
+        article_class = #{articleClass,jdbcType=CHAR},
+      </if>
+      <if test="praise != null" >
+        praise = #{praise,jdbcType=INTEGER},
+      </if>
+      <if test="stamp != null" >
+        stamp = #{stamp,jdbcType=INTEGER},
+      </if>
+      <if test="topFlg != null" >
+        top_flg = #{topFlg,jdbcType=CHAR},
+      </if>
+      <if test="adoptFlg != null" >
+        adopt_flg = #{adoptFlg,jdbcType=CHAR},
+      </if>
+      <if test="adoptReason != null" >
+        adopt_reason = #{adoptReason,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlg != null" >
+        del_flg = #{delFlg,jdbcType=CHAR},
+      </if>
+      <if test="createId != null" >
+        create_id = #{createId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateId != null" >
+        update_id = #{updateId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.travel.model.TravelArticle" >
+    update travel_article
+    set article_id = #{articleId,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      author_account = #{authorAccount,jdbcType=VARCHAR},
+      time = #{time,jdbcType=TIMESTAMP},
+      article_class = #{articleClass,jdbcType=CHAR},
+      praise = #{praise,jdbcType=INTEGER},
+      stamp = #{stamp,jdbcType=INTEGER},
+      top_flg = #{topFlg,jdbcType=CHAR},
+      adopt_flg = #{adoptFlg,jdbcType=CHAR},
+      adopt_reason = #{adoptReason,jdbcType=VARCHAR},
+      del_flg = #{delFlg,jdbcType=CHAR},
+      create_id = #{createId,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_id = #{updateId,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      content = #{content,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.travel.model.TravelArticle" >
+    update travel_article
+    set article_id = #{articleId,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      author_account = #{authorAccount,jdbcType=VARCHAR},
+      time = #{time,jdbcType=TIMESTAMP},
+      article_class = #{articleClass,jdbcType=CHAR},
+      praise = #{praise,jdbcType=INTEGER},
+      stamp = #{stamp,jdbcType=INTEGER},
+      top_flg = #{topFlg,jdbcType=CHAR},
+      adopt_flg = #{adoptFlg,jdbcType=CHAR},
+      adopt_reason = #{adoptReason,jdbcType=VARCHAR},
+      del_flg = #{delFlg,jdbcType=CHAR},
+      create_id = #{createId,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_id = #{updateId,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

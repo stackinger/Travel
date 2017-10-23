@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.travel.dao.TravelOrderMapper" >
+  <resultMap id="BaseResultMap" type="com.travel.model.TravelOrder" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="order_id" property="orderId" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="number" property="number" jdbcType="INTEGER" />
+    <result column="integral_price" property="integralPrice" jdbcType="INTEGER" />
+    <result column="total_price" property="totalPrice" jdbcType="INTEGER" />
+    <result column="place_account" property="placeAccount" jdbcType="VARCHAR" />
+    <result column="receipt_name" property="receiptName" jdbcType="VARCHAR" />
+    <result column="receipt_phone" property="receiptPhone" jdbcType="VARCHAR" />
+    <result column="receipt_address" property="receiptAddress" jdbcType="VARCHAR" />
+    <result column="express_company" property="expressCompany" jdbcType="VARCHAR" />
+    <result column="courier_number" property="courierNumber" jdbcType="VARCHAR" />
+    <result column="picture_one" property="pictureOne" jdbcType="VARCHAR" />
+    <result column="order_status" property="orderStatus" jdbcType="CHAR" />
+    <result column="refuse_reason" property="refuseReason" jdbcType="CHAR" />
+    <result column="del_flg" property="delFlg" jdbcType="CHAR" />
+    <result column="create_id" property="createId" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_id" property="updateId" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, order_id, name, number, integral_price, total_price, place_account, receipt_name, 
+    receipt_phone, receipt_address, express_company, courier_number, picture_one, order_status, 
+    refuse_reason, del_flg, create_id, create_time, update_id, update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from travel_order
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from travel_order
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.travel.model.TravelOrder" >
+    insert into travel_order (id, order_id, name, 
+      number, integral_price, total_price, 
+      place_account, receipt_name, receipt_phone, 
+      receipt_address, express_company, courier_number, 
+      picture_one, order_status, refuse_reason, 
+      del_flg, create_id, create_time, 
+      update_id, update_time)
+    values (#{id,jdbcType=INTEGER}, #{orderId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{number,jdbcType=INTEGER}, #{integralPrice,jdbcType=INTEGER}, #{totalPrice,jdbcType=INTEGER}, 
+      #{placeAccount,jdbcType=VARCHAR}, #{receiptName,jdbcType=VARCHAR}, #{receiptPhone,jdbcType=VARCHAR}, 
+      #{receiptAddress,jdbcType=VARCHAR}, #{expressCompany,jdbcType=VARCHAR}, #{courierNumber,jdbcType=VARCHAR}, 
+      #{pictureOne,jdbcType=VARCHAR}, #{orderStatus,jdbcType=CHAR}, #{refuseReason,jdbcType=CHAR}, 
+      #{delFlg,jdbcType=CHAR}, #{createId,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateId,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.travel.model.TravelOrder" >
+    insert into travel_order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="number != null" >
+        number,
+      </if>
+      <if test="integralPrice != null" >
+        integral_price,
+      </if>
+      <if test="totalPrice != null" >
+        total_price,
+      </if>
+      <if test="placeAccount != null" >
+        place_account,
+      </if>
+      <if test="receiptName != null" >
+        receipt_name,
+      </if>
+      <if test="receiptPhone != null" >
+        receipt_phone,
+      </if>
+      <if test="receiptAddress != null" >
+        receipt_address,
+      </if>
+      <if test="expressCompany != null" >
+        express_company,
+      </if>
+      <if test="courierNumber != null" >
+        courier_number,
+      </if>
+      <if test="pictureOne != null" >
+        picture_one,
+      </if>
+      <if test="orderStatus != null" >
+        order_status,
+      </if>
+      <if test="refuseReason != null" >
+        refuse_reason,
+      </if>
+      <if test="delFlg != null" >
+        del_flg,
+      </if>
+      <if test="createId != null" >
+        create_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateId != null" >
+        update_id,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="orderId != null" >
+        #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="number != null" >
+        #{number,jdbcType=INTEGER},
+      </if>
+      <if test="integralPrice != null" >
+        #{integralPrice,jdbcType=INTEGER},
+      </if>
+      <if test="totalPrice != null" >
+        #{totalPrice,jdbcType=INTEGER},
+      </if>
+      <if test="placeAccount != null" >
+        #{placeAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptName != null" >
+        #{receiptName,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptPhone != null" >
+        #{receiptPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptAddress != null" >
+        #{receiptAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="expressCompany != null" >
+        #{expressCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="courierNumber != null" >
+        #{courierNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="pictureOne != null" >
+        #{pictureOne,jdbcType=VARCHAR},
+      </if>
+      <if test="orderStatus != null" >
+        #{orderStatus,jdbcType=CHAR},
+      </if>
+      <if test="refuseReason != null" >
+        #{refuseReason,jdbcType=CHAR},
+      </if>
+      <if test="delFlg != null" >
+        #{delFlg,jdbcType=CHAR},
+      </if>
+      <if test="createId != null" >
+        #{createId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateId != null" >
+        #{updateId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.travel.model.TravelOrder" >
+    update travel_order
+    <set >
+      <if test="orderId != null" >
+        order_id = #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="number != null" >
+        number = #{number,jdbcType=INTEGER},
+      </if>
+      <if test="integralPrice != null" >
+        integral_price = #{integralPrice,jdbcType=INTEGER},
+      </if>
+      <if test="totalPrice != null" >
+        total_price = #{totalPrice,jdbcType=INTEGER},
+      </if>
+      <if test="placeAccount != null" >
+        place_account = #{placeAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptName != null" >
+        receipt_name = #{receiptName,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptPhone != null" >
+        receipt_phone = #{receiptPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptAddress != null" >
+        receipt_address = #{receiptAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="expressCompany != null" >
+        express_company = #{expressCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="courierNumber != null" >
+        courier_number = #{courierNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="pictureOne != null" >
+        picture_one = #{pictureOne,jdbcType=VARCHAR},
+      </if>
+      <if test="orderStatus != null" >
+        order_status = #{orderStatus,jdbcType=CHAR},
+      </if>
+      <if test="refuseReason != null" >
+        refuse_reason = #{refuseReason,jdbcType=CHAR},
+      </if>
+      <if test="delFlg != null" >
+        del_flg = #{delFlg,jdbcType=CHAR},
+      </if>
+      <if test="createId != null" >
+        create_id = #{createId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateId != null" >
+        update_id = #{updateId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.travel.model.TravelOrder" >
+    update travel_order
+    set order_id = #{orderId,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      number = #{number,jdbcType=INTEGER},
+      integral_price = #{integralPrice,jdbcType=INTEGER},
+      total_price = #{totalPrice,jdbcType=INTEGER},
+      place_account = #{placeAccount,jdbcType=VARCHAR},
+      receipt_name = #{receiptName,jdbcType=VARCHAR},
+      receipt_phone = #{receiptPhone,jdbcType=VARCHAR},
+      receipt_address = #{receiptAddress,jdbcType=VARCHAR},
+      express_company = #{expressCompany,jdbcType=VARCHAR},
+      courier_number = #{courierNumber,jdbcType=VARCHAR},
+      picture_one = #{pictureOne,jdbcType=VARCHAR},
+      order_status = #{orderStatus,jdbcType=CHAR},
+      refuse_reason = #{refuseReason,jdbcType=CHAR},
+      del_flg = #{delFlg,jdbcType=CHAR},
+      create_id = #{createId,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_id = #{updateId,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
