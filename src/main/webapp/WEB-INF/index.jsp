@@ -7,8 +7,10 @@
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<title>index</title>
 		<link rel="stylesheet" href="<c:url value='/resources/css/mui.css'/>" />
+		<link rel="stylesheet" href="<c:url value='/resources/css/iconfont.css'/>" />
 		<style>
 			.font-black{color:#000;}
+			.mui-table-view:after{background-color:#fff;}
 		</style>
 	</head>
 	<body>
@@ -139,29 +141,54 @@
 			            </li>
 			        </div>
 			        <div class="mui-col-xs-2 mui-col-xs-12" style="list-style-type:none;">
-			            <li class="mui-table-view-cell">
-			                	美食
-			            </li>
+				        <ul class="mui-table-view mui-grid-view">
+				            <li class="mui-table-view-cell mui-media">
+				            	<a href="#">
+				                	<span class="icon iconfont icon-meishi"></span>
+			                    	<p class="mui-media-body" style="margin-top:-3px;font-size:12px;">美食</p>
+			                    </a>
+				            </li>
+				        </ul>
 			        </div>
 			        <div class="mui-col-xs-2 mui-col-xs-12" style="list-style-type:none;">
-			            <li class="mui-table-view-cell">
-			                	酒店
-			            </li>
+			            <ul class="mui-table-view mui-grid-view">
+				            <li class="mui-table-view-cell mui-media">
+				            	<a href="#">
+				                	<span class="icon iconfont icon-jiudian"></span>
+			                    	<p class="mui-media-body" style="margin-top:-3px;font-size:12px;">酒店</p>
+			                    </a>
+				            </li>
+				        </ul>
 			        </div>
 			        <div class="mui-col-xs-2 mui-col-xs-12" style="list-style-type:none;">
-			            <li class="mui-table-view-cell">
-			                	景点
-			            </li>
+			            <ul class="mui-table-view mui-grid-view">
+				            <li class="mui-table-view-cell mui-media">
+				            	<a href="#">
+				                	<span class="icon iconfont icon-jingdian"></span>
+			                    	<p class="mui-media-body" style="margin-top:-3px;font-size:12px;">景点</p>
+			                    </a>
+				            </li>
+				        </ul>
 			        </div>
 			        <div class="mui-col-xs-2 mui-col-xs-12" style="list-style-type:none;">
-			            <li class="mui-table-view-cell">
-			                	娱乐
-			            </li>
+			            <ul class="mui-table-view mui-grid-view">
+				            <li class="mui-table-view-cell mui-media">
+				            	<a href="#">
+				                	<span class="icon iconfont icon-iconfontyule"></span>
+			                    	<p class="mui-media-body" style="margin-top:-3px;font-size:12px;">娱乐</p>
+			                    </a>
+				            </li>
+				        </ul>
 			        </div>
 			        <div class="mui-col-xs-2 mui-col-xs-12" style="list-style-type:none;">
-			            <li class="mui-table-view-cell">
-			                	商场
-			            </li>
+			            <ul class="mui-table-view mui-grid-view">
+				            <li class="mui-table-view-cell mui-media">
+				            	<a href="#">
+				                	<span class="icon iconfont icon-shangchang"></span>
+			                    	<p class="mui-media-body" style="margin-top:-3px;font-size:12px;">商场</p>
+			                    </a>
+				            </li>
+				        </ul>
 			        </div>
 			        <div class="mui-col-xs-1 mui-col-xs-12" style="list-style-type:none;">
 			            <li class="mui-table-view-cell">
@@ -323,18 +350,18 @@
 					</div>
 				</div>
 				<ul class="mui-table-view" style="box-shadow: 0 1px 2px rgba(0, 0, 0, .3);">
-				    <li class="mui-table-view-cell"><p class="font-black">我的消息</p></li>
-				    <li class="mui-table-view-cell"><p class="font-black">我的收藏</p></li>
-				    <li class="mui-table-view-cell"><p class="font-black">我的发布</p></li>
-				    <li class="mui-table-view-cell"><p class="font-black">关注管理</p></li>
+				    <li class="mui-table-view-cell"><span class="icon iconfont icon-xiaoxi" style="display:inline-block;margin-right:8px;font-size:18px;!important;"></span><p class="font-black" style="display:inline-block;">我的消息</p></li>
+				    <li class="mui-table-view-cell"><span class="icon iconfont icon-wodeshoucang" style="display:inline-block;margin-right:8px;font-size:18px;!important;"></span><p class="font-black" style="display:inline-block;">我的收藏</p></li>
+				    <li class="mui-table-view-cell"><span class="icon iconfont icon-wodefabu" style="display:inline-block;margin-right:8px;font-size:18px;!important;"></span><p class="font-black" style="display:inline-block;">我的发布</p></li>
+				    <li class="mui-table-view-cell"><span class="icon iconfont icon-3435" style="display:inline-block;margin-right:8px;font-size:18px;!important;"></span><p class="font-black" style="display:inline-block;">关注管理</p></li>
 				</ul>
 				<ul class="mui-table-view" style="margin-top:10px;box-shadow:0 1px 2px rgba(0, 0, 0, .3);">
-				    <li class="mui-table-view-cell"><p class="font-black">积分商城</p></li>
-				    <li class="mui-table-view-cell"><p class="font-black">兑换记录</p></li>
+				    <li class="mui-table-view-cell"><span class="icon iconfont icon-jifenshangcheng" style="display:inline-block;margin-right:8px;font-size:18px;!important;"></span><p class="font-black" style="display:inline-block;">积分商城</p></li>
+				    <li class="mui-table-view-cell"><span class="icon iconfont icon-duihuanjilu" style="display:inline-block;margin-right:8px;font-size:18px;!important;"></span><p class="font-black" style="display:inline-block;">兑换记录</p></li>
 				</ul>
 				<ul class="mui-table-view" style="margin-top:10px;box-shadow:0 1px 2px rgba(0, 0, 0, .3);margin-bottom:20px;">
-				    <li class="mui-table-view-cell"><p class="font-black">意见反馈</p></li>
-				    <li class="mui-table-view-cell"><p class="font-black">关于金陵游</p></li>
+				    <li class="mui-table-view-cell"><span class="icon iconfont icon-yijianfankui" style="display:inline-block;margin-right:8px;font-size:18px;!important;"></span><p class="font-black" style="display:inline-block;">意见反馈</p></li>
+				    <li class="mui-table-view-cell"><span class="icon iconfont icon-guanyu" style="display:inline-block;margin-right:8px;font-size:18px;!important;"></span><p class="font-black" style="display:inline-block;">关于金陵游</p></li>
 				</ul>
 			</div>
 		</div>
