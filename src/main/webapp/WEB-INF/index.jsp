@@ -346,7 +346,7 @@
 					<div class="mui-card-content mui-card-media">
 						<p style="text-align:center;font-size:28px;margin-top:20px;color:#000;">317</p>
 						<p style="text-align:center;margin-top:10px">积分</p>
-						<button type="button" data-loading-icon="mui-spinner mui-spinner-custom" class="mui-btn mui-btn-danger mui-btn-outlined" data-loading-text="签到中" style="display:block;margin:0 auto;width:100px;margin-bottom:20px;">签到</button>
+						<button id="qianDaoBtn" type="button" data-loading-icon="mui-spinner mui-spinner-custom" class="mui-btn mui-btn-danger mui-btn-outlined" data-loading-text="签到中" style="display:block;margin:0 auto;width:100px;margin-bottom:20px;">签到</button>
 					</div>
 				</div>
 				<ul class="mui-table-view" style="box-shadow: 0 1px 2px rgba(0, 0, 0, .3);">
@@ -377,8 +377,8 @@
 		});
 		
 		//游记：获得slider插件对象
-		var gallery = mui('#youJiSlider');
-		gallery.slider({
+		var gallery1 = mui('#youJiSlider');
+		gallery1.slider({
 		  interval:2000//自动轮播周期，若为0则不自动播放，默认为0；
 		});
 		
@@ -394,6 +394,8 @@
 		    mui(this).button('loading');
 		    setTimeout(function() {
 		        mui(this).button('reset');
+		        document.getElementById('qianDaoBtn').innerHTML="已签到";
+		        document.getElementById('qianDaoBtn').disabled="true";
 		    }.bind(this), 2000);
 		});
 	</script>
