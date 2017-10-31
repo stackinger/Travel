@@ -20,7 +20,7 @@
 		//登录页面跳转
 		function index(){
 			var form = document.forms[0];
-			form.action = basePath+"menu/login";
+			form.action = basePath+"admin/menu/test";
 			form.method="GET";
 			form.submit();
 		}
