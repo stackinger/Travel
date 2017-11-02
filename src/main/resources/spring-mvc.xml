@@ -15,6 +15,7 @@
     <mvc:annotation-driven/>
     <!-- 静态资源处理  css js imgs -->
     <mvc:resources location="/" mapping="/resources/**"/>
+    <mvc:resources location="/upload/"  mapping="/upload/**" />   
     
     <!--避免IE执行AJAX时，返回JSON出现下载文件 -->  
     <bean id="mappingJacksonHttpMessageConverter"  
