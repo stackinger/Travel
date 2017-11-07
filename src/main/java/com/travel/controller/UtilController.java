@@ -64,7 +64,7 @@ public class UtilController {
 						System.out.println(myFileName); 
 						//重命名上传后的文件名 
 						/*String fileName = "upload/" + file.getOriginalFilename(); */
-						String fileName = "upload/" + System.currentTimeMillis();
+						String fileName = "upload/" + System.currentTimeMillis() + myFileName.substring(myFileName.lastIndexOf("."), myFileName.length());
 						//定义上传路径 
 						String appRoot = request.getSession().getServletContext().getRealPath("") + File.separator;
 						System.out.println(appRoot);
