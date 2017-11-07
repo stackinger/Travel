@@ -34,7 +34,7 @@
 			<p class="mui-pull-right" style="margin-right:10px;">忘记密码</p>
 			
 			<div class="mui-button-row">
-		        <button type="button" class="mui-btn mui-btn-primary" data-loading-text="登录中" style="width:90%">登录</button>
+		        <button type="button" class="mui-btn mui-btn-primary" data-loading-text="登录中" style="width:90%" data-loading-icon="">登录</button>
 		    </div>
 		</div>
 		<script src="<c:url value='/resources/js/mui.js'/>"></script>
