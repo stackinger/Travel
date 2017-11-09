@@ -13,7 +13,16 @@ public interface TravelUserMapper {
 
     int updateByPrimaryKeySelective(TravelUser record);
 
-    int updateByPrimaryKeyWithBLOBs(TravelUser record);
-
     int updateByPrimaryKey(TravelUser record);
+    
+    /**
+	 * 
+	* @Title: selectByPhonrPaw 
+	* @Description: 登录：根据用户名、密码查询用户
+	* @param @param travelUser
+	* @param @return    设定文件 
+	* @return TravelUser    返回类型 
+	* @throws
+	 */
+    TravelUser selectByPhonrPaw(TravelUser travelUser);
 }

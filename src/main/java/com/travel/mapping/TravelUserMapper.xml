@@ -14,27 +14,20 @@
     <result column="city" property="city" jdbcType="VARCHAR" />
     <result column="district" property="district" jdbcType="VARCHAR" />
     <result column="integral" property="integral" jdbcType="INTEGER" />
+    <result column="head_portrait" property="headPortrait" jdbcType="VARCHAR" />
     <result column="del_flg" property="delFlg" jdbcType="CHAR" />
     <result column="create_id" property="createId" jdbcType="VARCHAR" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="update_id" property="updateId" jdbcType="VARCHAR" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
   </resultMap>
-  <resultMap id="ResultMapWithBLOBs" type="com.travel.model.TravelUser" extends="BaseResultMap" >
-    <result column="head_portrait" property="headPortrait" jdbcType="LONGVARBINARY" />
-  </resultMap>
   <sql id="Base_Column_List" >
     id, account, name, email, phone_number, password, sex, birthday, province, city, 
-    district, integral, del_flg, create_id, create_time, update_id, update_time
+    district, integral, head_portrait, del_flg, create_id, create_time, update_id, update_time
   </sql>
-  <sql id="Blob_Column_List" >
-    head_portrait
-  </sql>
-  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
     from travel_user
     where id = #{id,jdbcType=INTEGER}
   </select>
@@ -47,15 +40,15 @@
       email, phone_number, password, 
       sex, birthday, province, 
       city, district, integral, 
-      del_flg, create_id, create_time, 
-      update_id, update_time, head_portrait
+      head_portrait, del_flg, create_id, 
+      create_time, update_id, update_time
       )
     values (#{id,jdbcType=INTEGER}, #{account,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
       #{email,jdbcType=VARCHAR}, #{phoneNumber,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
       #{sex,jdbcType=CHAR}, #{birthday,jdbcType=DATE}, #{province,jdbcType=VARCHAR}, 
       #{city,jdbcType=VARCHAR}, #{district,jdbcType=VARCHAR}, #{integral,jdbcType=INTEGER}, 
-      #{delFlg,jdbcType=CHAR}, #{createId,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{updateId,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{headPortrait,jdbcType=LONGVARBINARY}
+      #{headPortrait,jdbcType=VARCHAR}, #{delFlg,jdbcType=CHAR}, #{createId,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateId,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.travel.model.TravelUser" >
@@ -97,6 +90,9 @@
       <if test="integral != null" >
         integral,
       </if>
+      <if test="headPortrait != null" >
+        head_portrait,
+      </if>
       <if test="delFlg != null" >
         del_flg,
       </if>
@@ -111,9 +107,6 @@
       </if>
       <if test="updateTime != null" >
         update_time,
-      </if>
-      <if test="headPortrait != null" >
-        head_portrait,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -153,6 +146,9 @@
       <if test="integral != null" >
         #{integral,jdbcType=INTEGER},
       </if>
+      <if test="headPortrait != null" >
+        #{headPortrait,jdbcType=VARCHAR},
+      </if>
       <if test="delFlg != null" >
         #{delFlg,jdbcType=CHAR},
       </if>
@@ -167,9 +163,6 @@
       </if>
       <if test="updateTime != null" >
         #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="headPortrait != null" >
-        #{headPortrait,jdbcType=LONGVARBINARY},
       </if>
     </trim>
   </insert>
@@ -209,6 +202,9 @@
       <if test="integral != null" >
         integral = #{integral,jdbcType=INTEGER},
       </if>
+      <if test="headPortrait != null" >
+        head_portrait = #{headPortrait,jdbcType=VARCHAR},
+      </if>
       <if test="delFlg != null" >
         del_flg = #{delFlg,jdbcType=CHAR},
       </if>
@@ -224,31 +220,7 @@
       <if test="updateTime != null" >
         update_time = #{updateTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="headPortrait != null" >
-        head_portrait = #{headPortrait,jdbcType=LONGVARBINARY},
-      </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.travel.model.TravelUser" >
-    update travel_user
-    set account = #{account,jdbcType=VARCHAR},
-      name = #{name,jdbcType=VARCHAR},
-      email = #{email,jdbcType=VARCHAR},
-      phone_number = #{phoneNumber,jdbcType=VARCHAR},
-      password = #{password,jdbcType=VARCHAR},
-      sex = #{sex,jdbcType=CHAR},
-      birthday = #{birthday,jdbcType=DATE},
-      province = #{province,jdbcType=VARCHAR},
-      city = #{city,jdbcType=VARCHAR},
-      district = #{district,jdbcType=VARCHAR},
-      integral = #{integral,jdbcType=INTEGER},
-      del_flg = #{delFlg,jdbcType=CHAR},
-      create_id = #{createId,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_id = #{updateId,jdbcType=VARCHAR},
-      update_time = #{updateTime,jdbcType=TIMESTAMP},
-      head_portrait = #{headPortrait,jdbcType=LONGVARBINARY}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.travel.model.TravelUser" >
@@ -264,6 +236,7 @@
       city = #{city,jdbcType=VARCHAR},
       district = #{district,jdbcType=VARCHAR},
       integral = #{integral,jdbcType=INTEGER},
+      head_portrait = #{headPortrait,jdbcType=VARCHAR},
       del_flg = #{delFlg,jdbcType=CHAR},
       create_id = #{createId,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -271,4 +244,13 @@
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <!-- 登录：根据用户名、密码查询用户 -->
+  <select id="selectByPhonrPaw" parameterType="com.travel.model.TravelUser" resultMap="BaseResultMap">
+  	select 
+  	<include refid="Base_Column_List" />
+  	from travel_user
+  	where phone_number = #{phoneNumber,jdbcType=VARCHAR}
+  	and password = #{password,jdbcType=VARCHAR}
+  	and del_flg = '0'
+  </select>
 </mapper>

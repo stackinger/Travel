@@ -27,6 +27,8 @@ public class TravelUser {
 
     private Integer integral;
 
+    private String headPortrait;
+
     private String delFlg;
 
     private String createId;
@@ -36,8 +38,6 @@ public class TravelUser {
     private String updateId;
 
     private Date updateTime;
-
-    private byte[] headPortrait;
 
     public Integer getId() {
         return id;
@@ -135,6 +135,14 @@ public class TravelUser {
         this.integral = integral;
     }
 
+    public String getHeadPortrait() {
+        return headPortrait;
+    }
+
+    public void setHeadPortrait(String headPortrait) {
+        this.headPortrait = headPortrait == null ? null : headPortrait.trim();
+    }
+
     public String getDelFlg() {
         return delFlg;
     }
@@ -173,13 +181,5 @@ public class TravelUser {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
-    }
-
-    public byte[] getHeadPortrait() {
-        return headPortrait;
-    }
-
-    public void setHeadPortrait(byte[] headPortrait) {
-        this.headPortrait = headPortrait;
     }
 }

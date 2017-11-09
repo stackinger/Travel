@@ -18,33 +18,95 @@
 		</header>
 		<div class="mui-content">
 			<div class="mui-card">
-				<form class="mui-input-group">
+				<div class="mui-input-group">
 				    <div class="mui-input-row">
 				        <label>用户名</label>
-				    <input type="text" class="mui-input-clear" placeholder="请输入用户名">
+				    <input id="userName" type="text" class="mui-input-clear" placeholder="请输入用户名">
 				    </div>
 				    <div class="mui-input-row">
 				        <label>密码</label>
-				        <input type="password" class="mui-input-password" placeholder="请输入密码">
+				        <input id="password" type="password" class="mui-input-password" placeholder="请输入密码">
 				    </div>
-				</form>
+				</div>
 			</div>
 			<input type="checkbox" style="margin-left:10px;vertical-align:middle;"><p style="display:inline-block;">自动登录</p>
 			<p class="mui-pull-right" style="margin-right:10px;">注册新用户</p>
 			<p class="mui-pull-right" style="margin-right:10px;">忘记密码</p>
 			
 			<div class="mui-button-row">
-		        <button type="button" class="mui-btn mui-btn-primary" data-loading-text="登录中" style="width:90%" data-loading-icon="">登录</button>
+		        <button id="loginBtn" type="button" class="mui-btn mui-btn-primary" data-loading-text="登录中" style="width:90%" data-loading-icon="">登录</button>
 		    </div>
 		</div>
 		<script src="<c:url value='/resources/js/mui.js'/>"></script>
 		<script>
-		mui(document.body).on('tap', '.mui-btn', function(e) {
-		    mui(this).button('loading');
-		    setTimeout(function() {
-		        mui(this).button('reset');
-		    }.bind(this), 2000);
+		var basePath = "http://192.168.31.149:8080/Travel/"
+		
+		
+		var btn = document.getElementById("loginBtn");
+		//监听点击事件
+		btn.addEventListener("tap",function () {
+			var username = document.getElementById("userName").value;
+			var password = document.getElementById("password").value;
+			if(userName!="" && password!=""){
+				/* 登录按钮点击显示登陆中 */
+				document.getElementById("loginBtn").innerHTML="登陆中";
+				document.getElementById("loginBtn").disabled="true";
+				
+				mui.ajax(basePath+"travelUser/login",{
+				data:{
+					username:username,
+					password:password
+				},
+				dataType:'json',//服务器返回json格式数据
+				type:'post',//HTTP请求类型
+				timeout:10000,//超时时间设置为10秒；
+				headers:{'Content-Type':'application/x-www-form-urlencoded'},	              
+				success:function(data){
+					//服务器返回响应，根据响应结果，分析是否登录成功；
+					if(data.result == 0){
+						window.location.href=basePath+"menu/index"; 
+						document.getElementById("loginBtn").innerHTML="登陆";
+						document.getElementById("loginBtn").disabled=false;
+					}else{
+						alert("用户名或密码错误");
+						document.getElementById("loginBtn").innerHTML="登陆";
+						document.getElementById("loginBtn").disabled=false;
+					}
+				},
+				error:function(xhr,type,errorThrown){
+					//异常处理；
+					console.log(type);
+				}
+			});
+			}else{
+				alert("kong");
+			}
 		});
+		
+		/* 登录按钮功能 */
+		function login(){
+			var username = document.getElementById("userName").value;
+			var password = document.getElementById("password").value;
+			alert("用户名："+userName+"密码："+password);
+			/* mui.ajax(basePath+"travelUser/login",{
+				data:{
+					username:'username',
+					password:'password'
+				},
+				dataType:'json',//服务器返回json格式数据
+				type:'post',//HTTP请求类型
+				timeout:10000,//超时时间设置为10秒；
+				headers:{'Content-Type':'application/json'},	              
+				success:function(data){
+					//服务器返回响应，根据响应结果，分析是否登录成功；
+					...
+				},
+				error:function(xhr,type,errorThrown){
+					//异常处理；
+					console.log(type);
+				}
+			}); */
+		}
 		</script>
 	</body>
 </html>
