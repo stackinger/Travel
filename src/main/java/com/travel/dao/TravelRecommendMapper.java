@@ -1,5 +1,7 @@
 package com.travel.dao;
 
+import java.util.List;
+
 import com.travel.model.TravelRecommend;
 
 public interface TravelRecommendMapper {
@@ -14,4 +16,7 @@ public interface TravelRecommendMapper {
     int updateByPrimaryKeySelective(TravelRecommend record);
 
     int updateByPrimaryKey(TravelRecommend record);
+    
+    //查询出推荐内容列表(查询条件待定)
+    List<TravelRecommend> selectBySelective(TravelRecommend travelRecommend);
 }

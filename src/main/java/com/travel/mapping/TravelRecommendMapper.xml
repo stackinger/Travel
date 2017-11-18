@@ -30,6 +30,10 @@
     picture_two, picture_thr, picture_fou, picture_fiv, praise, stamp, top_flg, adopt_flg, 
     adopt_reason, del_flg, create_id, create_time, update_id, update_time
   </sql>
+  <!-- 只读取列表时需要的信息，只需要首张图片，标题，时间 -->
+  <sql id="General_List">
+  	id, recommend_id, title, author_account, time, recommend_class,picture_one,del_flg
+  </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
@@ -291,4 +295,13 @@
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+  <!-- 查询出推荐内容列表(查询条件待定) -->
+  <select id="selectBySelective" parameterType="com.travel.model.TravelRecommend" resultMap="BaseResultMap">
+  	select 
+    <include refid="General_List" />
+    from travel_recommend
+    where del_flg = #{delFlg,jdbcType=CHAR}
+    and adopt_flg = #{adoptFlg,jdbcType=CHAR}
+  </select>
 </mapper>

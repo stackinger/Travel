@@ -38,8 +38,9 @@
 		    </div>
 		</div>
 		<script src="<c:url value='/resources/js/mui.js'/>"></script>
+		<script src="../js/common.js"></script>
 		<script>
-		var basePath = "http://192.168.31.149:8080/Travel/"
+		
 		
 		
 		var btn = document.getElementById("loginBtn");
@@ -47,66 +48,44 @@
 		btn.addEventListener("tap",function () {
 			var username = document.getElementById("userName").value;
 			var password = document.getElementById("password").value;
-			if(userName!="" && password!=""){
+			if(username!="" && password!=""){
 				/* 登录按钮点击显示登陆中 */
 				document.getElementById("loginBtn").innerHTML="登陆中";
 				document.getElementById("loginBtn").disabled="true";
 				
 				mui.ajax(basePath+"travelUser/login",{
-				data:{
-					username:username,
-					password:password
-				},
-				dataType:'json',//服务器返回json格式数据
-				type:'post',//HTTP请求类型
-				timeout:10000,//超时时间设置为10秒；
-				headers:{'Content-Type':'application/x-www-form-urlencoded'},	              
-				success:function(data){
-					//服务器返回响应，根据响应结果，分析是否登录成功；
-					if(data.result == 0){
-						window.location.href=basePath+"menu/index"; 
-						document.getElementById("loginBtn").innerHTML="登陆";
-						document.getElementById("loginBtn").disabled=false;
-					}else{
-						alert("用户名或密码错误");
-						document.getElementById("loginBtn").innerHTML="登陆";
-						document.getElementById("loginBtn").disabled=false;
+					data:{
+						username:username,
+						password:password
+					},
+					dataType:'json',//服务器返回json格式数据
+					type:'post',//HTTP请求类型
+					timeout:10000,//超时时间设置为10秒；
+					headers:{'Content-Type':'application/x-www-form-urlencoded'},	              
+					success:function(data){
+						//服务器返回响应，根据响应结果，分析是否登录成功；
+						if(data.result == 0){
+							window.location.href=basePath+"menu/index"; 
+							document.getElementById("loginBtn").innerHTML="登陆";
+							document.getElementById("loginBtn").disabled=false;
+						}else{
+							mui.toast("用户名或密码错误");
+							document.getElementById("loginBtn").innerHTML="登陆";
+							document.getElementById("loginBtn").disabled=false;
+						}
+					},
+					error:function(xhr,type,errorThrown){
+						//异常处理；
+						console.log(type);
 					}
-				},
-				error:function(xhr,type,errorThrown){
-					//异常处理；
-					console.log(type);
-				}
-			});
-			}else{
-				alert("kong");
+				});
+			}else if(username == ""){
+				mui.toast("用户名不能为空");
+			}else if(password == ""){
+				mui.toast("密码不能为空");
 			}
 		});
 		
-		/* 登录按钮功能 */
-		function login(){
-			var username = document.getElementById("userName").value;
-			var password = document.getElementById("password").value;
-			alert("用户名："+userName+"密码："+password);
-			/* mui.ajax(basePath+"travelUser/login",{
-				data:{
-					username:'username',
-					password:'password'
-				},
-				dataType:'json',//服务器返回json格式数据
-				type:'post',//HTTP请求类型
-				timeout:10000,//超时时间设置为10秒；
-				headers:{'Content-Type':'application/json'},	              
-				success:function(data){
-					//服务器返回响应，根据响应结果，分析是否登录成功；
-					...
-				},
-				error:function(xhr,type,errorThrown){
-					//异常处理；
-					console.log(type);
-				}
-			}); */
-		}
 		</script>
 	</body>
 </html>

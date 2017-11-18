@@ -8,9 +8,12 @@
 		<title>index</title>
 		<link rel="stylesheet" href="<c:url value='/resources/css/mui.css'/>" />
 		<link rel="stylesheet" href="<c:url value='/resources/css/iconfont.css'/>" />
+		<link rel="stylesheet" href="<c:url value='/resources/css/loading.css'/>" />
 		<style>
 			.font-black{color:#000;}
 			.mui-table-view:after{background-color:#fff;}
+			.mui-card-content{font-size:17px;padding:10px;}
+			.mui-card-footer{min-height:30px;padding:5px;display:inline-block;}
 		</style>
 	</head>
 	<body>
@@ -196,11 +199,11 @@
 			            </li>
 			        </div>
 			    </div>
-				<div class="mui-card">
+				<%-- <div class="mui-card">
 					<!--页眉，放置标题-->
 					<div class="mui-card-header">页眉</div>
 					<!--内容区-->
-					<div class="mui-card-content mui-card-media" style="height:40vw;background-image:url(<c:url value='/resources/img/test.png'/>)">内容区</div>
+					<div class="mui-card-content mui-card-media" style="height:40vw;background-image:url(../upload/1510756846899.jpg)">内容区</div>
 					<!--页脚，放置补充信息或支持的操作-->
 					<div class="mui-card-footer">页脚</div>
 				</div>
@@ -235,6 +238,9 @@
 					<div class="mui-card-content mui-card-media" style="height:40vw;background-image:url(<c:url value='/resources/img/test.png'/>)">内容区</div>
 					<!--页脚，放置补充信息或支持的操作-->
 					<div class="mui-card-footer">页脚</div>
+				</div> --%>
+				<div id="faxianContent">
+					<p style="height: 2px;margin-top:100px;"></p>
 				</div>
 				<button id="jump" type="button" class="mui-btn-link">里面</button>
 			</div>
@@ -366,16 +372,64 @@
 			</div>
 		</div>
 	</body>
-	<script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+	<!-- <script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script> -->
 	<script src="<c:url value='/resources/js/mui.js'/>"></script>
+	<script src="../js/common.js"></script>
 	<script type="text/javascript">
 		mui.init();
-		//发现：获得slider插件对象
+		/* var basePath = "http://192.168.31.149:8080/Travel/" */
+		//发现：获得slider插件对象,轮播图片
 		var gallery = mui('#slider');
 		gallery.slider({
 		  interval:2000//自动轮播周期，若为0则不自动播放，默认为0；
 		});
 		
+		
+		//动态加载发现内容,为了减少主页加载时间过长，加载内容方法绑定到发现按钮
+		var faxianBtn = document.getElementById("faxianBtn");
+		faxianBtn.addEventListener("tap",function () {
+			var str1 = '<div class="spinner"></div>';
+			//进入页面加载动画，css样式：loading.css
+			document.getElementById('faxianContent').innerHTML = str1;
+			mui.ajax(basePath+"travelRecommend/select",{
+				dataType:'json',//服务器返回json格式数据
+				type:'post',//HTTP请求类型
+				timeout:10000,//超时时间设置为10秒；
+				headers:{'Content-Type':'application/x-www-form-urlencoded'},
+				success:function(data){
+					//服务器返回响应，根据响应结果，显示发现内容；
+					var str = "";
+					for(var i = 0;i<data.recommendList.length;i++){
+						str += '<div class="mui-card">'+
+							'<div class="mui-card-content mui-card-media" style="height:40vw;background-image:url('+data.recommendList[i].pictureOne+')">'+data.recommendList[i].title+'</div>'+
+							'<div class="mui-card-footer">'+data.recommendList[i].time+'</div>'+
+							'<span class="mui-icon mui-icon mui-icon-chatbubble" style="display:inline-block;float:right;padding:8px;font-size:14px;color:#6D6D72;">100</span>'+
+							'</div>';
+					}
+					setTimeout(function(){
+						document.getElementById('faxianContent').innerHTML = str;
+					},2000)
+					
+					
+				},
+				error:function(xhr,type,errorThrown){
+					//异常处理；
+					console.log(type);
+				}
+			});
+		});
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		///////////////////////////////////////////////////////////////////////
 		//游记：获得slider插件对象
 		var gallery1 = mui('#youJiSlider');
 		gallery1.slider({

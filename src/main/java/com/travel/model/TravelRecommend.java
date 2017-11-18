@@ -2,6 +2,8 @@ package com.travel.model;
 
 import java.util.Date;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 public class TravelRecommend {
     private Integer id;
 
@@ -11,6 +13,7 @@ public class TravelRecommend {
 
     private String authorAccount;
 
+    @JSONField (format="yyyy-MM-dd HH:mm")
     private Date time;
 
     private String recommendClass;

@@ -21,7 +21,7 @@
 		function index(){
 			var form = document.forms[0];
 			form.action = basePath+"menu/login";
-			form.method="POST";
+			form.method="GET";
 			form.submit();
 		}
 	</script>

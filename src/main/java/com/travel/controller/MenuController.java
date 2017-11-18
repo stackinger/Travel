@@ -30,7 +30,7 @@ public class MenuController {
 	* @return String    返回类型 
 	* @throws 
 	*/
-	@RequestMapping(value="/login",method=RequestMethod.POST)  
+	@RequestMapping(value="/login",method=RequestMethod.GET)  
     public String login(HttpServletRequest request){  
         
         return "login";  
