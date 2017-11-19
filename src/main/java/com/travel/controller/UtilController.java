@@ -1,5 +1,13 @@
 package com.travel.controller;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -9,6 +17,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.io.IOUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -24,6 +33,13 @@ import com.alibaba.fastjson.JSON;
 * @Description: 工具类
 * @author zhoukai 
 * @date 2017年11月2日 下午8:44:16 
+*  
+*/
+/** 
+* @ClassName: UtilController 
+* @Description: TODO(这里用一句话描述这个类的作用) 
+* @author zhoukai 
+* @date 2017年11月20日 上午12:08:50 
 *  
 */
 @Controller  
@@ -91,6 +107,72 @@ public class UtilController {
 			} 
 		String editor = JSON.toJSONString(map);
 		return editor; 
-		}
+	}
+	
+	/**
+	 * 
+	* @Title: weather 
+	* @Description: http://wthrcdn.etouch.cn/weather_mini?city=南京 提供的天气api，乱码问题暂时没解决，待用
+	* @param @param request
+	* @param @throws UnsupportedEncodingException    设定文件 
+	* @return String    返回类型 
+	* @throws
+	 */
+  	@RequestMapping("/weather") 
+	@ResponseBody 
+	public String weather(HttpServletRequest request) throws UnsupportedEncodingException{ 
+	  	Map<String,Object> map = new HashMap<String,Object>(); 
+	  	StringBuilder json = new StringBuilder();  
+        try {  
+            URL urlObject = new URL("http://wthrcdn.etouch.cn/weather_mini?citykey=101190101");  
+            URLConnection uc = urlObject.openConnection();  
+            BufferedReader in = new BufferedReader(new InputStreamReader(uc.getInputStream(),"GBK"));  
+            String inputLine = null;  
+            while ( (inputLine = in.readLine()) != null) {  
+                json.append(inputLine);  
+                System.out.println(json.toString());
+            }  
+            in.close();  
+        } catch (MalformedURLException e) {  
+            e.printStackTrace();  
+        } catch (IOException e) {  
+            e.printStackTrace();  
+        } 
+        System.out.println(json.toString());
+	    map.put("weather", json.toString());
+		return JSON.toJSONString(map); 
+	}
+  	
+  	/**
+  	 * 
+  	* @Title: weatherTwo 
+  	* @Description: http://www.sojson.com/api/weather.html提供的天气接口api,查询南京天气
+  	* @param @param request
+  	* @param @throws Exception    设定文件 
+  	* @return String    返回类型 
+  	* @throws
+  	 */
+  	@RequestMapping("/weatherTwo") 
+	@ResponseBody 
+	public String weatherTwo(HttpServletRequest request) throws Exception{ 
+	  	Map<String,Object> map = new HashMap<String,Object>(); 
+	  	//参数url化
+	  	String city = java.net.URLEncoder.encode("南京", "utf-8");
+	  	//拼地址
+	  	String apiUrl = String.format("http://www.sojson.com/open/api/weather/json.shtml?city=%s",city);
+	  	//开始请求
+	  	URL url= new URL(apiUrl);
+	  	URLConnection open = url.openConnection();
+	  	InputStream input = open.getInputStream();
+	  	//这里转换为String，带上包名，怕你们引错包
+	  	String result = org.apache.commons.io.IOUtils.toString(input,"utf-8");
+	  	//输出
+	  	System.out.println(result);
+	    map.put("weather", result);
+		return JSON.toJSONString(map); 
+	}
+  	
+  	
+  
     
 }  

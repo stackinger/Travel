@@ -11,6 +11,8 @@ public class TravelArticle {
 
     private String authorAccount;
 
+    private String pictureMain;
+
     private Date time;
 
     private String articleClass;
@@ -67,6 +69,14 @@ public class TravelArticle {
 
     public void setAuthorAccount(String authorAccount) {
         this.authorAccount = authorAccount == null ? null : authorAccount.trim();
+    }
+
+    public String getPictureMain() {
+        return pictureMain;
+    }
+
+    public void setPictureMain(String pictureMain) {
+        this.pictureMain = pictureMain == null ? null : pictureMain.trim();
     }
 
     public Date getTime() {

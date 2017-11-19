@@ -8,12 +8,14 @@
 		<title>index</title>
 		<link rel="stylesheet" href="<c:url value='/resources/css/mui.css'/>" />
 		<link rel="stylesheet" href="<c:url value='/resources/css/iconfont.css'/>" />
+		<link rel="stylesheet" href="<c:url value='/resources/css/iconfont_weather.css'/>" />
 		<link rel="stylesheet" href="<c:url value='/resources/css/loading.css'/>" />
 		<style>
 			.font-black{color:#000;}
 			.mui-table-view:after{background-color:#fff;}
 			.mui-card-content{font-size:17px;padding:10px;}
 			.mui-card-footer{min-height:30px;padding:5px;display:inline-block;}
+			.weather_card{list-style-type:none;text-align:center;}
 		</style>
 	</head>
 	<body>
@@ -43,7 +45,47 @@
 			<div id="shouye" class="mui-control-content mui-active">
 				<div class="mui-card">
 					<!--内容区-->
-					<div class="mui-card-content" style="height:40vw;">天气显示</div>
+					<div id="weatherCard" class="mui-card-content">
+						<!-- <p>南京市</p>
+						<div class="mui-row">
+							<div class="mui-col-sm-1 mui-col-xs-1"></div>
+					        <div class="mui-col-sm-2 mui-col-xs-2">
+					            <li class="mui-table-view-cell weather_card">
+					            	<p>今天</p>					                
+					                <span class="icon iconfont icon-sun"><span>
+					                <p>晴</p>    					              
+					            </li>
+					        </div>
+					        <div class="mui-col-sm-2 mui-col-xs-2">
+					            <li class="mui-table-view-cell weather_card">
+					                <p>明天</p>					                
+					                <span class="icon iconfont icon-sun"><span>
+					                <p>晴</p> 
+					            </li>
+					        </div>
+					        <div class="mui-col-sm-2 mui-col-xs-2">
+					            <li class="mui-table-view-cell weather_card">
+					                <p>后天</p>					                
+					                <span class="icon iconfont icon-sun"><span>
+					                <p>晴</p> 
+					            </li>
+					        </div>
+					        <div class="mui-col-sm-2 mui-col-xs-2">
+					            <li class="mui-table-view-cell weather_card">
+					            	<p>今天</p>					                
+					                <span class="icon iconfont icon-sun"><span>
+					                <p>晴</p>    					              
+					            </li>
+					        </div>
+					        <div class="mui-col-sm-2 mui-col-xs-2">
+					            <li class="mui-table-view-cell weather_card">
+					            	<p>今天</p>					                
+					                <span class="icon iconfont icon-sun"><span>
+					                <p>晴</p>    					              
+					            </li>
+					        </div>
+					        <div class="mui-col-sm-1 mui-col-xs-1"></div> -->
+					</div>
 				</div>
 				<div style="background-color:red;margin-left:10px;display:inline-block;width:6px;height:14px;"></div><p style="display:inline;margin-left:6px;">游精选</p>
 				<p class="mui-pull-right" style="display:inline;margin-right:10px;">更多>></p>
@@ -420,7 +462,52 @@
 		});
 		
 		
-		
+		//中华万年历天气api，通过城市名获取天气信息
+		tianqi();
+		function tianqi(){
+			//用于拼接天气卡片数据
+			var weatherStr = "<p>南京市</p>"+'<div class="mui-row">'+'<div class="mui-col-sm-1 mui-col-xs-1"></div>';
+			//用户显示不同的天气图标
+			var weatherIcon = [];
+			mui.ajax(basePath+"util/weatherTwo",{
+				dataType:'json',//服务器返回json格式数据
+				type:'post',//HTTP请求类型
+				timeout:10000,//超时时间设置为10秒；
+				headers:{'Content-Type':'application/x-www-form-urlencoded'},
+				success:function(data){
+					//服务器返回响应，根据响应结果，显示天气信息；
+					//将JSON字符串转化为JSON对象
+					var wea = JSON.parse(data.weather);
+					//根据天气信息显示不同的天气图标
+					for(var i = 0; i<5 ; i++){
+						switch(wea.data.forecast[i].type){
+						case "晴": 
+							weatherIcon[i] = "icon-sun";
+							break;
+						case "多云":
+							weatherIcon[i] = "icon-icon-test1";
+							break;
+						}
+						weatherStr += '<div class="mui-col-sm-2 mui-col-xs-2">'+
+									            '<li class="mui-table-view-cell weather_card">'+
+								            	'<p>今天</p>'+					                
+								                '<span class="icon iconfont '+weatherIcon[i]+'"><span>'+
+								                '<p>'+wea.data.forecast[i].type+'</p>'+		              
+								            '</li>'+
+								        '</div>';
+					}
+					
+					//将天气信息拼接到页面中
+					weatherStr += '<div class="mui-col-sm-1 mui-col-xs-1"></div>'+ '</div>';
+					 var weatherCard = document.getElementById("weatherCard");
+					 weatherCard.innerHTML = weatherStr;
+				},
+				error:function(xhr,type,errorThrown){
+					//异常处理；
+					console.log(type);
+				}
+			});
+		}
 		
 		
 		

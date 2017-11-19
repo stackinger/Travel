@@ -1,5 +1,7 @@
 package com.travel.dao;
 
+import java.util.List;
+
 import com.travel.model.TravelArticle;
 
 public interface TravelArticleMapper {
@@ -16,4 +18,6 @@ public interface TravelArticleMapper {
     int updateByPrimaryKeyWithBLOBs(TravelArticle record);
 
     int updateByPrimaryKey(TravelArticle record);
+    
+    List<TravelArticle> selectBySelective(TravelArticle article);
 }

@@ -6,8 +6,10 @@
     <result column="article_id" property="articleId" jdbcType="VARCHAR" />
     <result column="title" property="title" jdbcType="VARCHAR" />
     <result column="author_account" property="authorAccount" jdbcType="VARCHAR" />
+    <result column="picture_main" property="pictureMain" jdbcType="VARCHAR" />
     <result column="time" property="time" jdbcType="TIMESTAMP" />
     <result column="article_class" property="articleClass" jdbcType="CHAR" />
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
     <result column="praise" property="praise" jdbcType="INTEGER" />
     <result column="stamp" property="stamp" jdbcType="INTEGER" />
     <result column="top_flg" property="topFlg" jdbcType="CHAR" />
@@ -19,21 +21,18 @@
     <result column="update_id" property="updateId" jdbcType="VARCHAR" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
   </resultMap>
-  <resultMap id="ResultMapWithBLOBs" type="com.travel.model.TravelArticle" extends="BaseResultMap" >
-    <result column="content" property="content" jdbcType="LONGVARCHAR" />
-  </resultMap>
   <sql id="Base_Column_List" >
-    id, article_id, title, author_account, time, article_class, praise, stamp, top_flg, 
-    adopt_flg, adopt_reason, del_flg, create_id, create_time, update_id, update_time
+    id, article_id, title, author_account, picture_main, time, article_class, content, praise, 
+    stamp, top_flg, adopt_flg, adopt_reason, del_flg, create_id, create_time, update_id, 
+    update_time
   </sql>
-  <sql id="Blob_Column_List" >
-    content
+  <sql id="General_List">
+  	id, article_id, title, author_account, picture_main, time, article_class,top_flg, adopt_flg,
+  	del_flg
   </sql>
-  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
     from travel_article
     where id = #{id,jdbcType=INTEGER}
   </select>
@@ -43,17 +42,19 @@
   </delete>
   <insert id="insert" parameterType="com.travel.model.TravelArticle" >
     insert into travel_article (id, article_id, title, 
-      author_account, time, article_class, 
-      praise, stamp, top_flg, 
-      adopt_flg, adopt_reason, del_flg, 
-      create_id, create_time, update_id, 
-      update_time, content)
+      author_account, picture_main, time, 
+      article_class, praise, stamp, 
+      top_flg, adopt_flg, adopt_reason, 
+      del_flg, create_id, create_time, 
+      update_id, update_time, content
+      )
     values (#{id,jdbcType=INTEGER}, #{articleId,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
-      #{authorAccount,jdbcType=VARCHAR}, #{time,jdbcType=TIMESTAMP}, #{articleClass,jdbcType=CHAR}, 
-      #{praise,jdbcType=INTEGER}, #{stamp,jdbcType=INTEGER}, #{topFlg,jdbcType=CHAR}, 
-      #{adoptFlg,jdbcType=CHAR}, #{adoptReason,jdbcType=VARCHAR}, #{delFlg,jdbcType=CHAR}, 
-      #{createId,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateId,jdbcType=VARCHAR}, 
-      #{updateTime,jdbcType=TIMESTAMP}, #{content,jdbcType=LONGVARCHAR})
+      #{authorAccount,jdbcType=VARCHAR}, #{pictureMain,jdbcType=VARCHAR}, #{time,jdbcType=TIMESTAMP}, 
+      #{articleClass,jdbcType=CHAR}, #{praise,jdbcType=INTEGER}, #{stamp,jdbcType=INTEGER}, 
+      #{topFlg,jdbcType=CHAR}, #{adoptFlg,jdbcType=CHAR}, #{adoptReason,jdbcType=VARCHAR}, 
+      #{delFlg,jdbcType=CHAR}, #{createId,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateId,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{content,jdbcType=LONGVARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.travel.model.TravelArticle" >
     insert into travel_article
@@ -69,6 +70,9 @@
       </if>
       <if test="authorAccount != null" >
         author_account,
+      </if>
+      <if test="pictureMain != null" >
+        picture_main,
       </if>
       <if test="time != null" >
         time,
@@ -123,6 +127,9 @@
       <if test="authorAccount != null" >
         #{authorAccount,jdbcType=VARCHAR},
       </if>
+      <if test="pictureMain != null" >
+        #{pictureMain,jdbcType=VARCHAR},
+      </if>
       <if test="time != null" >
         #{time,jdbcType=TIMESTAMP},
       </if>
@@ -176,6 +183,9 @@
       <if test="authorAccount != null" >
         author_account = #{authorAccount,jdbcType=VARCHAR},
       </if>
+      <if test="pictureMain != null" >
+        picture_main = #{pictureMain,jdbcType=VARCHAR},
+      </if>
       <if test="time != null" >
         time = #{time,jdbcType=TIMESTAMP},
       </if>
@@ -223,6 +233,7 @@
     set article_id = #{articleId,jdbcType=VARCHAR},
       title = #{title,jdbcType=VARCHAR},
       author_account = #{authorAccount,jdbcType=VARCHAR},
+      picture_main = #{pictureMain,jdbcType=VARCHAR},
       time = #{time,jdbcType=TIMESTAMP},
       article_class = #{articleClass,jdbcType=CHAR},
       praise = #{praise,jdbcType=INTEGER},
@@ -243,6 +254,7 @@
     set article_id = #{articleId,jdbcType=VARCHAR},
       title = #{title,jdbcType=VARCHAR},
       author_account = #{authorAccount,jdbcType=VARCHAR},
+      picture_main = #{pictureMain,jdbcType=VARCHAR},
       time = #{time,jdbcType=TIMESTAMP},
       article_class = #{articleClass,jdbcType=CHAR},
       praise = #{praise,jdbcType=INTEGER},
@@ -257,4 +269,13 @@
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+  <!-- 根据条件查询出文章列表，查询条件待定 -->
+  <select id="selectBySelective" parameterType="com.travel.model.TravelArticle" resultMap="BaseResultMap">
+  	select 
+    <include refid="General_List" />
+    from travel_article
+    where del_flg = #{delFlg,jdbcType=CHAR}
+    and adopt_flg = #{adoptFlg,jdbcType=CHAR}
+  </select>
 </mapper>
