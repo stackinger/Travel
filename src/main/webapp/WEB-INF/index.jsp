@@ -16,6 +16,19 @@
 			.mui-card-content{font-size:17px;padding:10px;}
 			.mui-card-footer{min-height:30px;padding:5px;display:inline-block;}
 			.weather_card{list-style-type:none;text-align:center;}
+			.font-40{font-size:40px;}
+			.weather-font{color:#8f8f94;font-size:14px;}
+			.aqi-font{background-color:orange;font-size:12px;color:#fff;padding:2px;}
+			.width-20{width:20%;}
+			.width-30{width:30%;}
+			.padding-right-10{padding-right:10px;}
+			.padding-left-10{padding-left:10px;}
+			.border-right-2{border-right:#8f8f94 2px solid;}
+			.text-align-end{text-align:end;}
+			.more-right{display:inline;margin-right:10px;}
+			.div-red-s{background-color:red;margin-left:10px;display:inline-block;width:6px;height:14px;}
+			.inline-left-6{display:inline;margin-left:6px;}
+			.vertical-center{justify-content:center;align-items:center;display:-webkit-flex;}
 		</style>
 	</head>
 	<body>
@@ -46,49 +59,46 @@
 				<div class="mui-card">
 					<!--内容区-->
 					<div id="weatherCard" class="mui-card-content">
-						<!-- <p>南京市</p>
+						<div class="mui-row vertical-center">
+							<div class="mui-col-sm-10 mui-col-xs-10">
+								<table>
+									<tr>
+										<td rowspan="2" class="font-40">-°</td>
+										<td class="weather-font" >南京市</td>
+									</tr>
+									<tr>
+										<td class="weather-font">-°/-° <span class="aqi-font">---</span></td>
+									</tr>
+									<tr>
+										<td colspan="2" class="weather-font">- ---- 湿度--%</td>
+									</tr>
+								</table>
+							</div>
+							<div class="mui-col-sm-2 mui-col-xs-2">
+								<span class="icon iconfont icon-icon-test22 font-40"></span>
+							</div>
+						</div>
+						<hr />
 						<div class="mui-row">
-							<div class="mui-col-sm-1 mui-col-xs-1"></div>
-					        <div class="mui-col-sm-2 mui-col-xs-2">
-					            <li class="mui-table-view-cell weather_card">
-					            	<p>今天</p>					                
-					                <span class="icon iconfont icon-sun"><span>
-					                <p>晴</p>    					              
-					            </li>
-					        </div>
-					        <div class="mui-col-sm-2 mui-col-xs-2">
-					            <li class="mui-table-view-cell weather_card">
-					                <p>明天</p>					                
-					                <span class="icon iconfont icon-sun"><span>
-					                <p>晴</p> 
-					            </li>
-					        </div>
-					        <div class="mui-col-sm-2 mui-col-xs-2">
-					            <li class="mui-table-view-cell weather_card">
-					                <p>后天</p>					                
-					                <span class="icon iconfont icon-sun"><span>
-					                <p>晴</p> 
-					            </li>
-					        </div>
-					        <div class="mui-col-sm-2 mui-col-xs-2">
-					            <li class="mui-table-view-cell weather_card">
-					            	<p>今天</p>					                
-					                <span class="icon iconfont icon-sun"><span>
-					                <p>晴</p>    					              
-					            </li>
-					        </div>
-					        <div class="mui-col-sm-2 mui-col-xs-2">
-					            <li class="mui-table-view-cell weather_card">
-					            	<p>今天</p>					                
-					                <span class="icon iconfont icon-sun"><span>
-					                <p>晴</p>    					              
-					            </li>
-					        </div>
-					        <div class="mui-col-sm-1 mui-col-xs-1"></div> -->
+							<table style="width:100%">
+								<tr>
+									<td class="width-25 weather-font" >明天|-</td>
+									<td class="width-25 weather-font padding-right-10 border-right-2 text-align-end">-°/-°</td>
+									<td class="width-25 weather-font padding-left-10">后天|-</td>
+									<td class="width-25 weather-font text-align-end">-°/-°</td>
+								</tr>
+								<tr>
+									<td class="weather-font">--</td>
+					 				<td class="weather-font padding-right-10 border-right-2 text-align-end"><span class="icon iconfont icon-icon-test22"></span></td>
+									<td class="weather-font padding-left-10">--</td>
+									<td class="weather-font text-align-end"><span class="icon iconfont icon-icon-test22"></span></td>
+								</tr>
+							</table>
+						</div>
 					</div>
 				</div>
-				<div style="background-color:red;margin-left:10px;display:inline-block;width:6px;height:14px;"></div><p style="display:inline;margin-left:6px;">游精选</p>
-				<p class="mui-pull-right" style="display:inline;margin-right:10px;">更多>></p>
+				<div class="div-red-s"></div><p class="inline-left-6">游精选</p>
+				<p class="mui-pull-right more-right">更多>></p>
 				<div class="mui-card">
 					<!--页眉，放置标题-->
 					<div class="mui-card-header">页眉</div>
@@ -113,8 +123,8 @@
 					<!--页脚，放置补充信息或支持的操作-->
 					<div class="mui-card-footer">页脚</div>
 				</div>
-				<div style="background-color:red;margin-left:10px;display:inline-block;width:6px;height:14px;"></div><p style="display:inline;margin-left:6px;">最游记</p>
-				<p class="mui-pull-right" style="display:inline;margin-right:10px;">更多>></p>
+				<div class="div-red-s"></div><p class="inline-left-6">最游记</p>
+				<p class="mui-pull-right more-right">更多>></p>
 				<div class="mui-card">
 					<!--页眉，放置标题-->
 					<div class="mui-card-header mui-card-media">
@@ -241,46 +251,6 @@
 			            </li>
 			        </div>
 			    </div>
-				<%-- <div class="mui-card">
-					<!--页眉，放置标题-->
-					<div class="mui-card-header">页眉</div>
-					<!--内容区-->
-					<div class="mui-card-content mui-card-media" style="height:40vw;background-image:url(../upload/1510756846899.jpg)">内容区</div>
-					<!--页脚，放置补充信息或支持的操作-->
-					<div class="mui-card-footer">页脚</div>
-				</div>
-				<div class="mui-card">
-					<!--页眉，放置标题-->
-					<div class="mui-card-header">页眉</div>
-					<!--内容区-->
-					<div class="mui-card-content mui-card-media" style="height:40vw;background-image:url(<c:url value='/resources/img/test.png'/>)">内容区</div>
-					<!--页脚，放置补充信息或支持的操作-->
-					<div class="mui-card-footer">页脚</div>
-				</div>
-				<div class="mui-card">
-					<!--页眉，放置标题-->
-					<div class="mui-card-header">页眉</div>
-					<!--内容区-->
-					<div class="mui-card-content mui-card-media" style="height:40vw;background-image:url(<c:url value='/resources/img/test.png'/>)">内容区</div>
-					<!--页脚，放置补充信息或支持的操作-->
-					<div class="mui-card-footer">页脚</div>
-				</div>
-				<div class="mui-card">
-					<!--页眉，放置标题-->
-					<div class="mui-card-header">页眉</div>
-					<!--内容区-->
-					<div class="mui-card-content mui-card-media" style="height:40vw;background-image:url(<c:url value='/resources/img/test.png'/>)">内容区</div>
-					<!--页脚，放置补充信息或支持的操作-->
-					<div class="mui-card-footer">页脚</div>
-				</div>
-				<div class="mui-card">
-					<!--页眉，放置标题-->
-					<div class="mui-card-header">页眉</div>
-					<!--内容区-->
-					<div class="mui-card-content mui-card-media" style="height:40vw;background-image:url(<c:url value='/resources/img/test.png'/>)">内容区</div>
-					<!--页脚，放置补充信息或支持的操作-->
-					<div class="mui-card-footer">页脚</div>
-				</div> --%>
 				<div id="faxianContent">
 					<p style="height: 2px;margin-top:100px;"></p>
 				</div>
@@ -466,9 +436,11 @@
 		tianqi();
 		function tianqi(){
 			//用于拼接天气卡片数据
-			var weatherStr = "<p>南京市</p>"+'<div class="mui-row">'+'<div class="mui-col-sm-1 mui-col-xs-1"></div>';
+			var weatherStr = "";
 			//用户显示不同的天气图标
 			var weatherIcon = [];
+			//空气质量情况
+			var airaqi = [];
 			mui.ajax(basePath+"util/weatherTwo",{
 				dataType:'json',//服务器返回json格式数据
 				type:'post',//HTTP请求类型
@@ -478,29 +450,136 @@
 					//服务器返回响应，根据响应结果，显示天气信息；
 					//将JSON字符串转化为JSON对象
 					var wea = JSON.parse(data.weather);
+					console.log(data.weather);
 					//根据天气信息显示不同的天气图标
 					for(var i = 0; i<5 ; i++){
 						switch(wea.data.forecast[i].type){
-						case "晴": 
-							weatherIcon[i] = "icon-sun";
-							break;
-						case "多云":
-							weatherIcon[i] = "icon-icon-test1";
-							break;
+							case "晴": 
+								weatherIcon[i] = "icon-sun";
+								break;
+							case "多云":
+								weatherIcon[i] = "icon-icon-test1";
+								break;
+							case "阴":
+								weatherIcon[i] = "icon-icon-test";
+								break;
+							case "中雨":
+								weatherIcon[i] = "icon-icon-test2";
+								break;
+							case "小雨":
+								weatherIcon[i] = "icon-icon-test3";
+								break;
+							case "大雨":
+								weatherIcon[i] = "icon-icon-test4";
+								break;
+							case "雨加冰雹":
+								weatherIcon[i] = "icon-icon-test6";
+								break;
+							case "特大暴雨":
+								weatherIcon[i] = "icon-icon-test7";
+								break;
+							case "暴雨":
+								weatherIcon[i] = "icon-icon-test8";
+								break;
+							case "小雪":
+								weatherIcon[i] = "icon-icon-test9";
+								break;
+							case "中雪":
+								weatherIcon[i] = "icon-icon-test10";
+								break;
+							case "雨夹雪":
+								weatherIcon[i] = "icon-icon-test11";
+								break;
+							case "大雪":
+								weatherIcon[i] = "icon-icon-test12";
+								break;
+							case "浮沉":
+								weatherIcon[i] = "icon-icon-test13";
+								break;
+							case "沙尘":
+								weatherIcon[i] = "icon-icon-test14";
+								break;
+							case "大暴雪":
+								weatherIcon[i] = "icon-icon-test15";
+								break;
+							case "雾":
+								weatherIcon[i] = "icon-icon-test16";
+								break;
+							case "雾霾":
+								weatherIcon[i] = "icon-icon-test17";
+								break;
+							case "飓风":
+								weatherIcon[i] = "icon-icon-test18";
+								break;
+							case "大风":
+								weatherIcon[i] = "icon-icon-test19";
+								break;
+							case "龙卷风":
+								weatherIcon[i] = "icon-icon-test20";
+								break;
+							case "风":
+								weatherIcon[i] = "icon-icon-test21";
+								break;
+							default:
+								weatherIcon[i] = "icon-icon-test22";
+								break;
 						}
-						weatherStr += '<div class="mui-col-sm-2 mui-col-xs-2">'+
-									            '<li class="mui-table-view-cell weather_card">'+
-								            	'<p>今天</p>'+					                
-								                '<span class="icon iconfont '+weatherIcon[i]+'"><span>'+
-								                '<p>'+wea.data.forecast[i].type+'</p>'+		              
-								            '</li>'+
-								        '</div>';
 					}
-					
+					//根据不同的aqi显示对应的空气质量
+					for(var i = 0; i<5 ; i++){
+						if(wea.data.forecast[i].aqi<51){
+							airaqi[i] = "优";
+						}else if(50<wea.data.forecast[i].aqi<101){
+							airaqi[i] = "良";
+						}else if(100<wea.data.forecast[i].aqi<151){
+							airaqi[i] = "轻度污染";
+						}else if(150<wea.data.forecast[i].aqi<201){
+							airaqi[i] = "中度污染";
+						}else if(200<wea.data.forecast[i].aqi<301){
+							airaqi[i] = "重度污染";
+						}else if(wea.data.forecast[i].aqi>300){
+							airaqi[i] = "严重污染";
+						}
+					}
+					weatherStr = '<div class="mui-row vertical-center">'+
+										'<div class="mui-col-sm-10 mui-col-xs-10">'+
+										'<table>'+
+											'<tr>'+
+												'<td rowspan="2" class="font-40">'+wea.data.wendu+'°</td>'+
+												'<td class="weather-font" >南京市</td>'+
+											'</tr>'+
+											'<tr>'+
+												'<td class="weather-font">'+wea.data.forecast[0].high.substring(2,wea.data.forecast[0].high.length)+'/'+wea.data.forecast[0].low.substring(2,wea.data.forecast[0].low.length)+'° <span class="aqi-font">'+wea.data.quality+'</span></td>'+
+											'</tr>'+
+											'<tr>'+
+												'<td colspan="2" class="weather-font">'+wea.data.forecast[0].type+' '+wea.data.forecast[0].fx+wea.data.forecast[0].fl+' 湿度'+wea.data.shidu+'</td>'+
+											'</tr>'+
+										'</table>'+
+									'</div>'+
+									'<div class="mui-col-sm-2 mui-col-xs-2">'+
+										'<span class="icon iconfont '+weatherIcon[0]+' font-40"></span>'+
+									'</div>'+
+								'</div>'+
+								'<hr />'+
+								'<div class="mui-row">'+
+									'<table style="width:100%">'+
+										'<tr>'+
+											'<td class="width-20 weather-font" >明天|'+airaqi[1]+'</td>'+
+											'<td class="width-30 weather-font padding-right-10 border-right-2 text-align-end">'+wea.data.forecast[1].high.substring(2,wea.data.forecast[1].high.length)+'/'+wea.data.forecast[1].low.substring(2,wea.data.forecast[1].low.length)+'</td>'+
+											'<td class="width-20 weather-font padding-left-10">后天|'+airaqi[2]+'</td>'+
+											'<td class="width-30 weather-font text-align-end">'+wea.data.forecast[2].high.substring(2,wea.data.forecast[2].high.length)+'/'+wea.data.forecast[2].low.substring(2,wea.data.forecast[2].low.length)+'</td>'+
+										'</tr>'+
+										'<tr>'+
+											'<td class="weather-font">'+wea.data.forecast[1].type+'</td>'+
+							 				'<td class="weather-font padding-right-10 border-right-2 text-align-end"><span class="icon iconfont '+weatherIcon[1]+'"></span></td>'+
+											'<td class="weather-font padding-left-10">'+wea.data.forecast[2].type+'</td>'+
+											'<td class="weather-font text-align-end"><span class="icon iconfont '+weatherIcon[2]+'"></span></td>'+
+										'</tr>'+
+									'</table>'+
+								'</div>';
 					//将天气信息拼接到页面中
-					weatherStr += '<div class="mui-col-sm-1 mui-col-xs-1"></div>'+ '</div>';
-					 var weatherCard = document.getElementById("weatherCard");
-					 weatherCard.innerHTML = weatherStr;
+					var weatherCard = document.getElementById("weatherCard");
+					weatherCard.innerHTML = weatherStr;
 				},
 				error:function(xhr,type,errorThrown){
 					//异常处理；
