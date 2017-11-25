@@ -32,7 +32,7 @@
   </sql>
   <!-- 只读取列表时需要的信息，只需要首张图片，标题，时间 -->
   <sql id="General_List">
-  	id, recommend_id, title, author_account, time, recommend_class,picture_one,del_flg
+  	id, recommend_id, title, author_account, time, recommend_class,picture_one,top_flg, adopt_flg, del_flg
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -296,12 +296,13 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
   
-  <!-- 查询出推荐内容列表(查询条件待定) -->
+  <!-- 查询出推荐内容列表(查询条件待定),根据置顶、发布时间排序 -->
   <select id="selectBySelective" parameterType="com.travel.model.TravelRecommend" resultMap="BaseResultMap">
-  	select 
+  	SELECT 
     <include refid="General_List" />
-    from travel_recommend
-    where del_flg = #{delFlg,jdbcType=CHAR}
-    and adopt_flg = #{adoptFlg,jdbcType=CHAR}
+    FROM travel_recommend
+    WHERE del_flg = #{delFlg,jdbcType=CHAR}
+    AND adopt_flg = #{adoptFlg,jdbcType=CHAR}
+    ORDER BY top_flg,time DESC
   </select>
 </mapper>

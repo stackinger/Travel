@@ -8,7 +8,6 @@
 		<title>index</title>
 		<link rel="stylesheet" href="<c:url value='/resources/css/mui.css'/>" />
 		<link rel="stylesheet" href="<c:url value='/resources/css/iconfont.css'/>" />
-		<link rel="stylesheet" href="<c:url value='/resources/css/iconfont_weather.css'/>" />
 		<link rel="stylesheet" href="<c:url value='/resources/css/loading.css'/>" />
 		<style>
 			.font-black{color:#000;}
@@ -229,7 +228,7 @@
 			            <ul class="mui-table-view mui-grid-view">
 				            <li class="mui-table-view-cell mui-media">
 				            	<a href="#">
-				                	<span class="icon iconfont icon-iconfontyule"></span>
+				                	<span class="icon iconfont icon-yule"></span>
 			                    	<p class="mui-media-body" style="margin-top:-3px;font-size:12px;">娱乐</p>
 			                    </a>
 				            </li>
@@ -368,10 +367,10 @@
 					</div>
 				</div>
 				<ul class="mui-table-view" style="box-shadow: 0 1px 2px rgba(0, 0, 0, .3);">
-				    <li class="mui-table-view-cell"><span class="icon iconfont icon-xiaoxi" style="display:inline-block;margin-right:8px;font-size:18px;!important;"></span><p class="font-black" style="display:inline-block;">我的消息</p></li>
+				    <li class="mui-table-view-cell"><span class="icon iconfont icon-xiaoxi1" style="display:inline-block;margin-right:8px;font-size:18px;!important;"></span><p class="font-black" style="display:inline-block;">我的消息</p></li>
 				    <li class="mui-table-view-cell"><span class="icon iconfont icon-wodeshoucang" style="display:inline-block;margin-right:8px;font-size:18px;!important;"></span><p class="font-black" style="display:inline-block;">我的收藏</p></li>
-				    <li class="mui-table-view-cell"><span class="icon iconfont icon-wodefabu" style="display:inline-block;margin-right:8px;font-size:18px;!important;"></span><p class="font-black" style="display:inline-block;">我的发布</p></li>
-				    <li class="mui-table-view-cell"><span class="icon iconfont icon-3435" style="display:inline-block;margin-right:8px;font-size:18px;!important;"></span><p class="font-black" style="display:inline-block;">关注管理</p></li>
+				    <li class="mui-table-view-cell"><span class="icon iconfont icon-wofabude" style="display:inline-block;margin-right:8px;font-size:18px;!important;"></span><p class="font-black" style="display:inline-block;">我的发布</p></li>
+				    <li class="mui-table-view-cell"><span class="icon iconfont icon-guanzhu" style="display:inline-block;margin-right:8px;font-size:18px;!important;"></span><p class="font-black" style="display:inline-block;">关注管理</p></li>
 				</ul>
 				<ul class="mui-table-view" style="margin-top:10px;box-shadow:0 1px 2px rgba(0, 0, 0, .3);">
 				    <li class="mui-table-view-cell"><span class="icon iconfont icon-jifenshangcheng" style="display:inline-block;margin-right:8px;font-size:18px;!important;"></span><p class="font-black" style="display:inline-block;">积分商城</p></li>
@@ -403,19 +402,59 @@
 			var str1 = '<div class="spinner"></div>';
 			//进入页面加载动画，css样式：loading.css
 			document.getElementById('faxianContent').innerHTML = str1;
+			//显示内容卡片
+			var str = "";
+			//显示推荐类型
+			var classStr = [];
+			//显示“置顶”消息
+			var zhiDing = [];
 			mui.ajax(basePath+"travelRecommend/select",{
 				dataType:'json',//服务器返回json格式数据
 				type:'post',//HTTP请求类型
 				timeout:10000,//超时时间设置为10秒；
 				headers:{'Content-Type':'application/x-www-form-urlencoded'},
 				success:function(data){
-					//服务器返回响应，根据响应结果，显示发现内容；
-					var str = "";
+					//服务器返回响应，根据响应结果，显示发现内容；					
+					//console.log(data.recommendList);
+					//显示推荐所属类型
+					for(var i = 0;i<data.recommendList.length;i++){
+						switch(data.recommendList[i].recommendClass){
+							case "1":
+								classStr[i]="美食";
+								break;
+							case "2":
+								classStr[i]="酒店";
+								break;
+							case "3":
+								classStr[i]="景点";
+								break;
+							case "4":
+								classStr[i]="娱乐";
+								break;
+							case "5":
+								classStr[i]="商场";
+								break;
+							default:
+								classStr[i]="未知";
+								break;
+						}
+						
+						if(data.recommendList[i].topFlg == "0"){
+							zhiDing[i] = '<span style="font-size:12px;border:1px #C0C0C2 solid;padding:1px;margin-left:4px;border-radius:3px;">置顶</span>';
+						}else{
+							zhiDing[i] = "";
+						}
+						
+					}
+					//console.log("class:"+classStr);
+					//console.log("zhiding:"+zhiDing);
+					
 					for(var i = 0;i<data.recommendList.length;i++){
 						str += '<div class="mui-card">'+
+							'<div class="weather-font" style="padding:5px;">'+classStr[i]+zhiDing[i]+'</div>'+
 							'<div class="mui-card-content mui-card-media" style="height:40vw;background-image:url('+data.recommendList[i].pictureOne+')">'+data.recommendList[i].title+'</div>'+
-							'<div class="mui-card-footer">'+data.recommendList[i].time+'</div>'+
-							'<span class="mui-icon mui-icon mui-icon-chatbubble" style="display:inline-block;float:right;padding:8px;font-size:14px;color:#6D6D72;">100</span>'+
+							'<div style="color:#fff;position:relative;margin-top:-20px;margin-left:5px">'+data.recommendList[i].time+'</div>'+
+							'<span class="mui-icon mui-icon-chatbubble" style="display:inline-block;float:right;font-size:14px;color:#fff;position:relative;margin-top:-17px;margin-right:5px;">100</span>'+
 							'</div>';
 					}
 					setTimeout(function(){
@@ -451,132 +490,139 @@
 					//将JSON字符串转化为JSON对象
 					var wea = JSON.parse(data.weather);
 					console.log(data.weather);
-					//根据天气信息显示不同的天气图标
-					for(var i = 0; i<5 ; i++){
-						switch(wea.data.forecast[i].type){
-							case "晴": 
-								weatherIcon[i] = "icon-sun";
-								break;
-							case "多云":
-								weatherIcon[i] = "icon-icon-test1";
-								break;
-							case "阴":
-								weatherIcon[i] = "icon-icon-test";
-								break;
-							case "中雨":
-								weatherIcon[i] = "icon-icon-test2";
-								break;
-							case "小雨":
-								weatherIcon[i] = "icon-icon-test3";
-								break;
-							case "大雨":
-								weatherIcon[i] = "icon-icon-test4";
-								break;
-							case "雨加冰雹":
-								weatherIcon[i] = "icon-icon-test6";
-								break;
-							case "特大暴雨":
-								weatherIcon[i] = "icon-icon-test7";
-								break;
-							case "暴雨":
-								weatherIcon[i] = "icon-icon-test8";
-								break;
-							case "小雪":
-								weatherIcon[i] = "icon-icon-test9";
-								break;
-							case "中雪":
-								weatherIcon[i] = "icon-icon-test10";
-								break;
-							case "雨夹雪":
-								weatherIcon[i] = "icon-icon-test11";
-								break;
-							case "大雪":
-								weatherIcon[i] = "icon-icon-test12";
-								break;
-							case "浮沉":
-								weatherIcon[i] = "icon-icon-test13";
-								break;
-							case "沙尘":
-								weatherIcon[i] = "icon-icon-test14";
-								break;
-							case "大暴雪":
-								weatherIcon[i] = "icon-icon-test15";
-								break;
-							case "雾":
-								weatherIcon[i] = "icon-icon-test16";
-								break;
-							case "雾霾":
-								weatherIcon[i] = "icon-icon-test17";
-								break;
-							case "飓风":
-								weatherIcon[i] = "icon-icon-test18";
-								break;
-							case "大风":
-								weatherIcon[i] = "icon-icon-test19";
-								break;
-							case "龙卷风":
-								weatherIcon[i] = "icon-icon-test20";
-								break;
-							case "风":
-								weatherIcon[i] = "icon-icon-test21";
-								break;
-							default:
-								weatherIcon[i] = "icon-icon-test22";
-								break;
+					console.log("状态码："+wea.status);
+					//接口返回状态码，200：调用成功；304：频繁调用，给出提示;
+					if(wea.status=="200"){
+						//根据天气信息显示不同的天气图标
+						for(var i = 0; i<5 ; i++){
+							switch(wea.data.forecast[i].type){
+								case "晴": 
+									weatherIcon[i] = "icon-sun";
+									break;
+								case "多云":
+									weatherIcon[i] = "icon-icon-test1";
+									break;
+								case "阴":
+									weatherIcon[i] = "icon-icon-test";
+									break;
+								case "中雨":
+									weatherIcon[i] = "icon-icon-test2";
+									break;
+								case "小雨":
+									weatherIcon[i] = "icon-icon-test3";
+									break;
+								case "大雨":
+									weatherIcon[i] = "icon-icon-test4";
+									break;
+								case "雨加冰雹":
+									weatherIcon[i] = "icon-icon-test6";
+									break;
+								case "特大暴雨":
+									weatherIcon[i] = "icon-icon-test7";
+									break;
+								case "暴雨":
+									weatherIcon[i] = "icon-icon-test8";
+									break;
+								case "小雪":
+									weatherIcon[i] = "icon-icon-test9";
+									break;
+								case "中雪":
+									weatherIcon[i] = "icon-icon-test10";
+									break;
+								case "雨夹雪":
+									weatherIcon[i] = "icon-icon-test11";
+									break;
+								case "大雪":
+									weatherIcon[i] = "icon-icon-test12";
+									break;
+								case "浮沉":
+									weatherIcon[i] = "icon-icon-test13";
+									break;
+								case "沙尘":
+									weatherIcon[i] = "icon-icon-test14";
+									break;
+								case "大暴雪":
+									weatherIcon[i] = "icon-icon-test15";
+									break;
+								case "雾":
+									weatherIcon[i] = "icon-icon-test16";
+									break;
+								case "雾霾":
+									weatherIcon[i] = "icon-icon-test17";
+									break;
+								case "飓风":
+									weatherIcon[i] = "icon-icon-test18";
+									break;
+								case "大风":
+									weatherIcon[i] = "icon-icon-test19";
+									break;
+								case "龙卷风":
+									weatherIcon[i] = "icon-icon-test20";
+									break;
+								case "风":
+									weatherIcon[i] = "icon-icon-test21";
+									break;
+								default:
+									weatherIcon[i] = "icon-icon-test22";
+									break;
+							}
 						}
-					}
-					//根据不同的aqi显示对应的空气质量
-					for(var i = 0; i<5 ; i++){
-						if(wea.data.forecast[i].aqi<51){
-							airaqi[i] = "优";
-						}else if(50<wea.data.forecast[i].aqi<101){
-							airaqi[i] = "良";
-						}else if(100<wea.data.forecast[i].aqi<151){
-							airaqi[i] = "轻度污染";
-						}else if(150<wea.data.forecast[i].aqi<201){
-							airaqi[i] = "中度污染";
-						}else if(200<wea.data.forecast[i].aqi<301){
-							airaqi[i] = "重度污染";
-						}else if(wea.data.forecast[i].aqi>300){
-							airaqi[i] = "严重污染";
+						//根据不同的aqi显示对应的空气质量
+						for(var i = 0; i<5 ; i++){
+							if(wea.data.forecast[i].aqi<51){
+								airaqi[i] = "优";
+							}else if(50<wea.data.forecast[i].aqi<101){
+								airaqi[i] = "良";
+							}else if(100<wea.data.forecast[i].aqi<151){
+								airaqi[i] = "轻度污染";
+							}else if(150<wea.data.forecast[i].aqi<201){
+								airaqi[i] = "中度污染";
+							}else if(200<wea.data.forecast[i].aqi<301){
+								airaqi[i] = "重度污染";
+							}else if(wea.data.forecast[i].aqi>300){
+								airaqi[i] = "严重污染";
+							}
 						}
-					}
-					weatherStr = '<div class="mui-row vertical-center">'+
-										'<div class="mui-col-sm-10 mui-col-xs-10">'+
-										'<table>'+
+						weatherStr = '<div class="mui-row vertical-center">'+
+											'<div class="mui-col-sm-10 mui-col-xs-10">'+
+											'<table>'+
+												'<tr>'+
+													'<td rowspan="2" class="font-40">'+wea.data.wendu+'°</td>'+
+													'<td class="weather-font" >南京市</td>'+
+												'</tr>'+
+												'<tr>'+
+													'<td class="weather-font">'+wea.data.forecast[0].high.substring(2,wea.data.forecast[0].high.length)+'/'+wea.data.forecast[0].low.substring(2,wea.data.forecast[0].low.length)+'<span class="aqi-font">'+wea.data.quality+'</span></td>'+
+												'</tr>'+
+												'<tr>'+
+													'<td colspan="2" class="weather-font">'+wea.data.forecast[0].type+' '+wea.data.forecast[0].fx+wea.data.forecast[0].fl+' 湿度'+wea.data.shidu+'</td>'+
+												'</tr>'+
+											'</table>'+
+										'</div>'+
+										'<div class="mui-col-sm-2 mui-col-xs-2">'+
+											'<span class="icon iconfont '+weatherIcon[0]+' font-40"></span>'+
+										'</div>'+
+									'</div>'+
+									'<hr />'+
+									'<div class="mui-row">'+
+										'<table style="width:100%">'+
 											'<tr>'+
-												'<td rowspan="2" class="font-40">'+wea.data.wendu+'°</td>'+
-												'<td class="weather-font" >南京市</td>'+
+												'<td class="width-20 weather-font" >明天|'+airaqi[1]+'</td>'+
+												'<td class="width-30 weather-font padding-right-10 border-right-2 text-align-end">'+wea.data.forecast[1].high.substring(2,wea.data.forecast[1].high.length)+'/'+wea.data.forecast[1].low.substring(2,wea.data.forecast[1].low.length)+'</td>'+
+												'<td class="width-20 weather-font padding-left-10">后天|'+airaqi[2]+'</td>'+
+												'<td class="width-30 weather-font text-align-end">'+wea.data.forecast[2].high.substring(2,wea.data.forecast[2].high.length)+'/'+wea.data.forecast[2].low.substring(2,wea.data.forecast[2].low.length)+'</td>'+
 											'</tr>'+
 											'<tr>'+
-												'<td class="weather-font">'+wea.data.forecast[0].high.substring(2,wea.data.forecast[0].high.length)+'/'+wea.data.forecast[0].low.substring(2,wea.data.forecast[0].low.length)+'° <span class="aqi-font">'+wea.data.quality+'</span></td>'+
-											'</tr>'+
-											'<tr>'+
-												'<td colspan="2" class="weather-font">'+wea.data.forecast[0].type+' '+wea.data.forecast[0].fx+wea.data.forecast[0].fl+' 湿度'+wea.data.shidu+'</td>'+
+												'<td class="weather-font">'+wea.data.forecast[1].type+'</td>'+
+								 				'<td class="weather-font padding-right-10 border-right-2 text-align-end"><span class="icon iconfont '+weatherIcon[1]+'"></span></td>'+
+												'<td class="weather-font padding-left-10">'+wea.data.forecast[2].type+'</td>'+
+												'<td class="weather-font text-align-end"><span class="icon iconfont '+weatherIcon[2]+'"></span></td>'+
 											'</tr>'+
 										'</table>'+
-									'</div>'+
-									'<div class="mui-col-sm-2 mui-col-xs-2">'+
-										'<span class="icon iconfont '+weatherIcon[0]+' font-40"></span>'+
-									'</div>'+
-								'</div>'+
-								'<hr />'+
-								'<div class="mui-row">'+
-									'<table style="width:100%">'+
-										'<tr>'+
-											'<td class="width-20 weather-font" >明天|'+airaqi[1]+'</td>'+
-											'<td class="width-30 weather-font padding-right-10 border-right-2 text-align-end">'+wea.data.forecast[1].high.substring(2,wea.data.forecast[1].high.length)+'/'+wea.data.forecast[1].low.substring(2,wea.data.forecast[1].low.length)+'</td>'+
-											'<td class="width-20 weather-font padding-left-10">后天|'+airaqi[2]+'</td>'+
-											'<td class="width-30 weather-font text-align-end">'+wea.data.forecast[2].high.substring(2,wea.data.forecast[2].high.length)+'/'+wea.data.forecast[2].low.substring(2,wea.data.forecast[2].low.length)+'</td>'+
-										'</tr>'+
-										'<tr>'+
-											'<td class="weather-font">'+wea.data.forecast[1].type+'</td>'+
-							 				'<td class="weather-font padding-right-10 border-right-2 text-align-end"><span class="icon iconfont '+weatherIcon[1]+'"></span></td>'+
-											'<td class="weather-font padding-left-10">'+wea.data.forecast[2].type+'</td>'+
-											'<td class="weather-font text-align-end"><span class="icon iconfont '+weatherIcon[2]+'"></span></td>'+
-										'</tr>'+
-									'</table>'+
-								'</div>';
+									'</div>';
+						
+					}else if(wea.status == "304"){
+						weatherStr = '<div class="weather-font vertical-center" style="height:149px;" onclick="tianqi()">请勿频繁调用(3s/次)，请3秒后<a onclick="tianqi()">点击重试</a>！</div>';
+					}
 					//将天气信息拼接到页面中
 					var weatherCard = document.getElementById("weatherCard");
 					weatherCard.innerHTML = weatherStr;
@@ -584,6 +630,7 @@
 				error:function(xhr,type,errorThrown){
 					//异常处理；
 					console.log(type);
+					console.log("获取天气失败");
 				}
 			});
 		}

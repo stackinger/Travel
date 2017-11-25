@@ -19,5 +19,6 @@ public interface TravelArticleMapper {
 
     int updateByPrimaryKey(TravelArticle record);
     
+    //根据条件查询出文章列表，查询条件待定,根据置顶，发布时间排序
     List<TravelArticle> selectBySelective(TravelArticle article);
 }

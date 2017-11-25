@@ -15,5 +15,11 @@ import com.travel.model.TravelArticle;
 */
 public interface TravelArticleService {
 	
+	/**
+	* @Title: selectBySelective 
+	* @Description: 根据条件查询出文章列表，查询条件待定,根据置顶，发布时间排序
+	* @param @param article
+	* @return List<TravelArticle>    返回类型 
+	 */
     public List<TravelArticle> selectBySelective(TravelArticle article);
 }  

@@ -14,5 +14,8 @@ import com.travel.model.TravelRecommend;
 */
 public interface TravelRecommendService {
 	
+	/**
+	 * @Description 查询出推荐内容列表(查询条件待定),根据置顶、发布时间排序
+	 */
     public List<TravelRecommend> selectBySelective(TravelRecommend travelRecommend);
 }  

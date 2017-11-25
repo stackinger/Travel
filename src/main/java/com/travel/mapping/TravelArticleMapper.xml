@@ -270,12 +270,13 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
   
-  <!-- 根据条件查询出文章列表，查询条件待定 -->
+  <!-- 根据条件查询出文章列表，查询条件待定,根据置顶，发布时间排序 -->
   <select id="selectBySelective" parameterType="com.travel.model.TravelArticle" resultMap="BaseResultMap">
-  	select 
+  	SELECT
     <include refid="General_List" />
-    from travel_article
-    where del_flg = #{delFlg,jdbcType=CHAR}
-    and adopt_flg = #{adoptFlg,jdbcType=CHAR}
+    FROM travel_article
+    WHERE del_flg = #{delFlg,jdbcType=CHAR}
+    AND adopt_flg = #{adoptFlg,jdbcType=CHAR}
+    ORDER BY top_flg,time DESC
   </select>
 </mapper>
