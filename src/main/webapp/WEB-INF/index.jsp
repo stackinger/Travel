@@ -194,7 +194,7 @@
 			            
 			            </li>
 			        </div>
-			        <div class="mui-col-xs-2 mui-col-xs-12" style="list-style-type:none;">
+			        <div id="meishi" class="mui-col-xs-2 mui-col-xs-12" style="list-style-type:none;">
 				        <ul class="mui-table-view mui-grid-view">
 				            <li class="mui-table-view-cell mui-media">
 				            	<a href="#">
@@ -204,7 +204,7 @@
 				            </li>
 				        </ul>
 			        </div>
-			        <div class="mui-col-xs-2 mui-col-xs-12" style="list-style-type:none;">
+			        <div id="jiudian" class="mui-col-xs-2 mui-col-xs-12" style="list-style-type:none;">
 			            <ul class="mui-table-view mui-grid-view">
 				            <li class="mui-table-view-cell mui-media">
 				            	<a href="#">
@@ -214,7 +214,7 @@
 				            </li>
 				        </ul>
 			        </div>
-			        <div class="mui-col-xs-2 mui-col-xs-12" style="list-style-type:none;">
+			        <div id="jingdian" class="mui-col-xs-2 mui-col-xs-12" style="list-style-type:none;">
 			            <ul class="mui-table-view mui-grid-view">
 				            <li class="mui-table-view-cell mui-media">
 				            	<a href="#">
@@ -224,7 +224,7 @@
 				            </li>
 				        </ul>
 			        </div>
-			        <div class="mui-col-xs-2 mui-col-xs-12" style="list-style-type:none;">
+			        <div id="yule" class="mui-col-xs-2 mui-col-xs-12" style="list-style-type:none;">
 			            <ul class="mui-table-view mui-grid-view">
 				            <li class="mui-table-view-cell mui-media">
 				            	<a href="#">
@@ -234,7 +234,7 @@
 				            </li>
 				        </ul>
 			        </div>
-			        <div class="mui-col-xs-2 mui-col-xs-12" style="list-style-type:none;">
+			        <div id="shangchang" class="mui-col-xs-2 mui-col-xs-12" style="list-style-type:none;">
 			            <ul class="mui-table-view mui-grid-view">
 				            <li class="mui-table-view-cell mui-media">
 				            	<a href="#">
@@ -389,87 +389,6 @@
 	<script type="text/javascript">
 		mui.init();
 		/* var basePath = "http://192.168.31.149:8080/Travel/" */
-		//发现：获得slider插件对象,轮播图片
-		var gallery = mui('#slider');
-		gallery.slider({
-		  interval:2000//自动轮播周期，若为0则不自动播放，默认为0；
-		});
-		
-		
-		//动态加载发现内容,为了减少主页加载时间过长，加载内容方法绑定到发现按钮
-		var faxianBtn = document.getElementById("faxianBtn");
-		faxianBtn.addEventListener("tap",function () {
-			var str1 = '<div class="spinner"></div>';
-			//进入页面加载动画，css样式：loading.css
-			document.getElementById('faxianContent').innerHTML = str1;
-			//显示内容卡片
-			var str = "";
-			//显示推荐类型
-			var classStr = [];
-			//显示“置顶”消息
-			var zhiDing = [];
-			mui.ajax(basePath+"travelRecommend/select",{
-				dataType:'json',//服务器返回json格式数据
-				type:'post',//HTTP请求类型
-				timeout:10000,//超时时间设置为10秒；
-				headers:{'Content-Type':'application/x-www-form-urlencoded'},
-				success:function(data){
-					//服务器返回响应，根据响应结果，显示发现内容；					
-					//console.log(data.recommendList);
-					//显示推荐所属类型
-					for(var i = 0;i<data.recommendList.length;i++){
-						switch(data.recommendList[i].recommendClass){
-							case "1":
-								classStr[i]="美食";
-								break;
-							case "2":
-								classStr[i]="酒店";
-								break;
-							case "3":
-								classStr[i]="景点";
-								break;
-							case "4":
-								classStr[i]="娱乐";
-								break;
-							case "5":
-								classStr[i]="商场";
-								break;
-							default:
-								classStr[i]="未知";
-								break;
-						}
-						
-						if(data.recommendList[i].topFlg == "0"){
-							zhiDing[i] = '<span style="font-size:12px;border:1px #C0C0C2 solid;padding:1px;margin-left:4px;border-radius:3px;">置顶</span>';
-						}else{
-							zhiDing[i] = "";
-						}
-						
-					}
-					//console.log("class:"+classStr);
-					//console.log("zhiding:"+zhiDing);
-					
-					for(var i = 0;i<data.recommendList.length;i++){
-						str += '<div class="mui-card">'+
-							'<div class="weather-font" style="padding:5px;">'+classStr[i]+zhiDing[i]+'</div>'+
-							'<div class="mui-card-content mui-card-media" style="height:40vw;background-image:url('+data.recommendList[i].pictureOne+')">'+data.recommendList[i].title+'</div>'+
-							'<div style="color:#fff;position:relative;margin-top:-20px;margin-left:5px">'+data.recommendList[i].time+'</div>'+
-							'<span class="mui-icon mui-icon-chatbubble" style="display:inline-block;float:right;font-size:14px;color:#fff;position:relative;margin-top:-17px;margin-right:5px;">100</span>'+
-							'</div>';
-					}
-					setTimeout(function(){
-						document.getElementById('faxianContent').innerHTML = str;
-					},2000)
-					
-					
-				},
-				error:function(xhr,type,errorThrown){
-					//异常处理；
-					console.log(type);
-				}
-			});
-		});
-		
 		
 		//中华万年历天气api，通过城市名获取天气信息
 		tianqi();
@@ -480,7 +399,7 @@
 			var weatherIcon = [];
 			//空气质量情况
 			var airaqi = [];
-			mui.ajax(basePath+"util/weatherTwo",{
+			mui.ajax(basePath+"util/heFengweather",{
 				dataType:'json',//服务器返回json格式数据
 				type:'post',//HTTP请求类型
 				timeout:10000,//超时时间设置为10秒；
@@ -490,12 +409,12 @@
 					//将JSON字符串转化为JSON对象
 					var wea = JSON.parse(data.weather);
 					console.log(data.weather);
-					console.log("状态码："+wea.status);
-					//接口返回状态码，200：调用成功；304：频繁调用，给出提示;
-					if(wea.status=="200"){
+					console.log("状态码："+wea.HeWeather6[0].status);
+					//接口返回状态码，ok：调用成功；其他：调用失败;
+					if(wea.HeWeather6[0].status=="ok"){
 						//根据天气信息显示不同的天气图标
-						for(var i = 0; i<5 ; i++){
-							switch(wea.data.forecast[i].type){
+						for(var i = 0; i<3 ; i++){
+							switch(wea.HeWeather6[0].daily_forecast[i].cond_txt_d){
 								case "晴": 
 									weatherIcon[i] = "icon-sun";
 									break;
@@ -568,7 +487,7 @@
 							}
 						}
 						//根据不同的aqi显示对应的空气质量
-						for(var i = 0; i<5 ; i++){
+						/* for(var i = 0; i<5 ; i++){
 							if(wea.data.forecast[i].aqi<51){
 								airaqi[i] = "优";
 							}else if(50<wea.data.forecast[i].aqi<101){
@@ -582,19 +501,19 @@
 							}else if(wea.data.forecast[i].aqi>300){
 								airaqi[i] = "严重污染";
 							}
-						}
+						} */
 						weatherStr = '<div class="mui-row vertical-center">'+
 											'<div class="mui-col-sm-10 mui-col-xs-10">'+
 											'<table>'+
 												'<tr>'+
-													'<td rowspan="2" class="font-40">'+wea.data.wendu+'°</td>'+
+													'<td rowspan="2" class="font-40">'+wea.HeWeather6[0].daily_forecast[0].tmp_max+'°C</td>'+
 													'<td class="weather-font" >南京市</td>'+
 												'</tr>'+
 												'<tr>'+
-													'<td class="weather-font">'+wea.data.forecast[0].high.substring(2,wea.data.forecast[0].high.length)+'/'+wea.data.forecast[0].low.substring(2,wea.data.forecast[0].low.length)+'<span class="aqi-font">'+wea.data.quality+'</span></td>'+
+													'<td class="weather-font">'+wea.HeWeather6[0].daily_forecast[0].tmp_max+'°C/'+wea.HeWeather6[0].daily_forecast[0].tmp_min+'°C</td>'+
 												'</tr>'+
 												'<tr>'+
-													'<td colspan="2" class="weather-font">'+wea.data.forecast[0].type+' '+wea.data.forecast[0].fx+wea.data.forecast[0].fl+' 湿度'+wea.data.shidu+'</td>'+
+													'<td colspan="2" class="weather-font">'+wea.HeWeather6[0].daily_forecast[0].cond_txt_d+' '+wea.HeWeather6[0].daily_forecast[0].wind_dir+' '+wea.HeWeather6[0].daily_forecast[0].wind_sc+'级  湿度'+wea.HeWeather6[0].daily_forecast[0].hum+'%</td>'+
 												'</tr>'+
 											'</table>'+
 										'</div>'+
@@ -606,22 +525,22 @@
 									'<div class="mui-row">'+
 										'<table style="width:100%">'+
 											'<tr>'+
-												'<td class="width-20 weather-font" >明天|'+airaqi[1]+'</td>'+
-												'<td class="width-30 weather-font padding-right-10 border-right-2 text-align-end">'+wea.data.forecast[1].high.substring(2,wea.data.forecast[1].high.length)+'/'+wea.data.forecast[1].low.substring(2,wea.data.forecast[1].low.length)+'</td>'+
-												'<td class="width-20 weather-font padding-left-10">后天|'+airaqi[2]+'</td>'+
-												'<td class="width-30 weather-font text-align-end">'+wea.data.forecast[2].high.substring(2,wea.data.forecast[2].high.length)+'/'+wea.data.forecast[2].low.substring(2,wea.data.forecast[2].low.length)+'</td>'+
+												'<td class="width-20 weather-font" >明天</td>'+
+												'<td class="width-30 weather-font padding-right-10 border-right-2 text-align-end">'+wea.HeWeather6[0].daily_forecast[1].tmp_max+'°C/'+wea.HeWeather6[0].daily_forecast[1].tmp_min+'°C</td>'+
+												'<td class="width-20 weather-font padding-left-10">后天</td>'+
+												'<td class="width-30 weather-font text-align-end">'+wea.HeWeather6[0].daily_forecast[2].tmp_max+'°C/'+wea.HeWeather6[0].daily_forecast[2].tmp_min+'°C</td>'+
 											'</tr>'+
 											'<tr>'+
-												'<td class="weather-font">'+wea.data.forecast[1].type+'</td>'+
+												'<td class="weather-font">'+wea.HeWeather6[0].daily_forecast[1].cond_txt_d+'</td>'+
 								 				'<td class="weather-font padding-right-10 border-right-2 text-align-end"><span class="icon iconfont '+weatherIcon[1]+'"></span></td>'+
-												'<td class="weather-font padding-left-10">'+wea.data.forecast[2].type+'</td>'+
+												'<td class="weather-font padding-left-10">'+wea.HeWeather6[0].daily_forecast[2].cond_txt_d+'</td>'+
 												'<td class="weather-font text-align-end"><span class="icon iconfont '+weatherIcon[2]+'"></span></td>'+
 											'</tr>'+
 										'</table>'+
 									'</div>';
 						
-					}else if(wea.status == "304"){
-						weatherStr = '<div class="weather-font vertical-center" style="height:149px;" onclick="tianqi()">请勿频繁调用(3s/次)，请3秒后<a onclick="tianqi()">点击重试</a>！</div>';
+					}else{
+						weatherStr = '<div class="weather-font vertical-center" style="height:149px;" onclick="tianqi()">获取天气数据出错<a onclick="tianqi()">点击重试</a>！</div>';
 					}
 					//将天气信息拼接到页面中
 					var weatherCard = document.getElementById("weatherCard");
@@ -630,9 +549,127 @@
 				error:function(xhr,type,errorThrown){
 					//异常处理；
 					console.log(type);
-					console.log("获取天气失败");
+					weatherStr = '<div class="weather-font vertical-center" style="height:149px;" onclick="tianqi()">获取天气数据出错<a onclick="tianqi()">点击重试</a>！</div>';
+					//将天气信息拼接到页面中
+					var weatherCard = document.getElementById("weatherCard");
+					weatherCard.innerHTML = weatherStr;
 				}
 			});
+		}
+		
+		
+		//发现：获得slider插件对象,轮播图片
+		var gallery = mui('#slider');
+		gallery.slider({
+		  interval:2000//自动轮播周期，若为0则不自动播放，默认为0；
+		});
+		
+		
+		//动态加载发现内容,为了减少主页加载时间过长，加载内容方法绑定到发现按钮
+		var faxianBtn = document.getElementById("faxianBtn");
+		faxianBtn.addEventListener("tap",function () {
+			var str1 = '<div class="spinner"></div>';
+			//进入页面加载动画，css样式：loading.css
+			document.getElementById('faxianContent').innerHTML = str1;
+			//显示内容卡片
+			var str = "";
+			//显示推荐类型
+			var classStr = [];
+			//显示“置顶”消息
+			var zhiDing = [];
+			mui.ajax(basePath+"travelRecommend/select",{
+				dataType:'json',//服务器返回json格式数据
+				type:'post',//HTTP请求类型
+				timeout:10000,//超时时间设置为10秒；
+				headers:{'Content-Type':'application/x-www-form-urlencoded'},
+				success:function(data){
+					//服务器返回响应，根据响应结果，显示发现内容；					
+					//console.log(data.recommendList);
+					//显示推荐所属类型
+					for(var i = 0;i<data.recommendList.length;i++){
+						switch(data.recommendList[i].recommendClass){
+							case "1":
+								classStr[i]="美食";
+								break;
+							case "2":
+								classStr[i]="酒店";
+								break;
+							case "3":
+								classStr[i]="景点";
+								break;
+							case "4":
+								classStr[i]="娱乐";
+								break;
+							case "5":
+								classStr[i]="商场";
+								break;
+							default:
+								classStr[i]="未知";
+								break;
+						}
+						
+						if(data.recommendList[i].topFlg == "0"){
+							zhiDing[i] = '<span style="font-size:12px;border:1px #C0C0C2 solid;padding:1px;margin-left:4px;border-radius:3px;color:#8f8f94;">置顶</span>';
+						}else{
+							zhiDing[i] = "";
+						}
+						
+					}
+					//console.log("class:"+classStr);
+					//console.log("zhiding:"+zhiDing);
+					
+					for(var i = 0;i<data.recommendList.length;i++){
+						str += '<div class="mui-card">'+
+							'<div style="padding:5px;font-size:14px;">'+classStr[i]+zhiDing[i]+'</div>'+
+							'<div class="mui-card-content mui-card-media" style="height:40vw;background-image:url('+data.recommendList[i].pictureOne+')">'+data.recommendList[i].title+'</div>'+
+							'<div style="color:#fff;position:relative;margin-top:-20px;margin-left:5px">'+data.recommendList[i].time+'</div>'+
+							'<span class="mui-icon mui-icon-chatbubble" style="display:inline-block;float:right;font-size:14px;color:#fff;position:relative;margin-top:-17px;margin-right:5px;">100</span>'+
+							'</div>';
+					}
+					setTimeout(function(){
+						document.getElementById('faxianContent').innerHTML = str;
+					},2000)
+					
+					
+				},
+				error:function(xhr,type,errorThrown){
+					//异常处理；
+					console.log(type);
+				}
+			});
+		});
+		
+		//美食分类对应的发现
+		var meiShiBtn = document.getElementById('meishi');
+		meiShiBtn.addEventListener("tap",function () {
+			selectByClass(1);
+		});
+		//酒店分类对应的发现
+		var jiuDianBtn = document.getElementById('jiudian');
+		jiuDianBtn.addEventListener("tap",function () {
+			selectByClass(2);
+		});
+		//景点分类对应的发现
+		var jingDianBtn = document.getElementById('jingdian');
+		jingDianBtn.addEventListener("tap",function () {
+			selectByClass(3);
+		});
+		//娱乐分类对应的发现
+		var yuLeBtn = document.getElementById('yule');
+		yuLeBtn.addEventListener("tap",function () {
+			selectByClass(4);
+		});
+		//商场分类对应的发现
+		var shangChangBtn = document.getElementById('shangchang');
+		shangChangBtn.addEventListener("tap",function () {
+			selectByClass(5);
+		});
+		
+		
+		
+		//根据对应的分类值显示对应的信息
+		function selectByClass(recommendClass){
+			window.location.href=basePath+"travelRecommend/jump?class="+recommendClass; 
 		}
 		
 		

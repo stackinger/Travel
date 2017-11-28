@@ -34,9 +34,16 @@ public class TravelRecommendController {
 	 @Resource  
 	 private TravelRecommendService travelRecommemdService;     
     
+	 /**
+	 * @Title: selectAll
+	 * @Description: 查询出所有的推荐列表
+	 * @param @param request
+	 * @return String    返回类型 
+	 * @throws
+	  */
 	@ResponseBody
     @RequestMapping(value="/select",method=RequestMethod.POST)  
-    public String test(HttpServletRequest request,Model model){ 
+    public String selectAll(HttpServletRequest request){ 
     	Map<String,Object> result = new HashMap<String,Object>();
     	TravelRecommend recommend = new TravelRecommend();
         recommend.setDelFlg("0");
@@ -45,5 +52,20 @@ public class TravelRecommendController {
         result.put("recommendList", recommendList);
         return JSON.toJSONString(result);  
     }  
+	
+	@RequestMapping(value="/jump",method=RequestMethod.GET)  
+    public String jump(HttpServletRequest request){ 
+    	String recommendClass = request.getParameter("class");
+    	TravelRecommend recommend = new TravelRecommend();
+        recommend.setDelFlg("0");
+        recommend.setAdoptFlg("1");
+        recommend.setRecommendClass(recommendClass);
+        List<TravelRecommend> list = travelRecommemdService.selectBySelective(recommend);
+        request.setAttribute("recommendList", JSON.toJSONString(list));
+        return "selectRecommend";  
+    }  
+	
+	
+	
   
 }  

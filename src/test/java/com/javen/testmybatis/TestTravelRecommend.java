@@ -33,6 +33,7 @@ public class TestTravelRecommend {
         TravelRecommend recommend = new TravelRecommend();
         recommend.setDelFlg("0");
         recommend.setAdoptFlg("1");
+        recommend.setRecommendClass("1");
         List<TravelRecommend> list = travelRecommemdService.selectBySelective(recommend);
         System.out.println(list.size());
         for(TravelRecommend arecommend : list){

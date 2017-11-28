@@ -303,6 +303,9 @@
     FROM travel_recommend
     WHERE del_flg = #{delFlg,jdbcType=CHAR}
     AND adopt_flg = #{adoptFlg,jdbcType=CHAR}
+    <if test="recommendClass != null" >
+    AND recommend_class = #{recommendClass,jdbcType=CHAR}
+    </if>
     ORDER BY top_flg,time DESC
   </select>
 </mapper>
