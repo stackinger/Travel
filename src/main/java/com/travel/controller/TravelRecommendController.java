@@ -53,15 +53,46 @@ public class TravelRecommendController {
         return JSON.toJSONString(result);  
     }  
 	
+	/**
+	* @Title: selectByClass 
+	* @Description: 根据分类查找推荐内容
+	* @param @param request
+	* @param @return    设定文件 
+	* @return String    返回类型 
+	* @throws
+	 */
 	@RequestMapping(value="/jump",method=RequestMethod.GET)  
-    public String jump(HttpServletRequest request){ 
+    public String selectByClass(HttpServletRequest request){ 
     	String recommendClass = request.getParameter("class");
     	TravelRecommend recommend = new TravelRecommend();
         recommend.setDelFlg("0");
         recommend.setAdoptFlg("1");
         recommend.setRecommendClass(recommendClass);
         List<TravelRecommend> list = travelRecommemdService.selectBySelective(recommend);
+        //根据class显示对应的分类信息
+        String className = "";
+        switch(Integer.valueOf(recommendClass)){
+        	case 1:
+        		className = "美食";
+        		break;
+        	case 2:
+        		className = "酒店";
+        		break;
+        	case 3:
+        		className = "景点";
+        		break;
+        	case 4:
+        		className = "娱乐";
+        		break;
+        	case 5:
+        		className = "商场";
+        		break;
+        	default:
+        		className = "其他";
+        		break;	
+        }
         request.setAttribute("recommendList", JSON.toJSONString(list));
+        request.setAttribute("className", className);
         return "selectRecommend";  
     }  
 	

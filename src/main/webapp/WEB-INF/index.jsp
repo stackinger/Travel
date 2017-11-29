@@ -253,7 +253,6 @@
 				<div id="faxianContent">
 					<p style="height: 2px;margin-top:100px;"></p>
 				</div>
-				<button id="jump" type="button" class="mui-btn-link">里面</button>
 			</div>
 			<!-- 游记 -->
 			<div id="youji" class="mui-control-content">
@@ -392,6 +391,15 @@
 		
 		//中华万年历天气api，通过城市名获取天气信息
 		tianqi();
+		//重试获取天气数据，加入加载动画
+		function reTianQi(){
+			var str = '<div class="weather-font vertical-center" style="height:149px;">加载中...</div>'
+			var weatherCard = document.getElementById("weatherCard");
+			weatherCard.innerHTML = str;
+			setTimeout(function(){
+				tianqi();
+			},2000);
+		}
 		function tianqi(){
 			//用于拼接天气卡片数据
 			var weatherStr = "";
@@ -408,8 +416,8 @@
 					//服务器返回响应，根据响应结果，显示天气信息；
 					//将JSON字符串转化为JSON对象
 					var wea = JSON.parse(data.weather);
-					console.log(data.weather);
-					console.log("状态码："+wea.HeWeather6[0].status);
+					//console.log(data.weather);
+					//console.log("状态码："+wea.HeWeather6[0].status);
 					//接口返回状态码，ok：调用成功；其他：调用失败;
 					if(wea.HeWeather6[0].status=="ok"){
 						//根据天气信息显示不同的天气图标
@@ -486,22 +494,6 @@
 									break;
 							}
 						}
-						//根据不同的aqi显示对应的空气质量
-						/* for(var i = 0; i<5 ; i++){
-							if(wea.data.forecast[i].aqi<51){
-								airaqi[i] = "优";
-							}else if(50<wea.data.forecast[i].aqi<101){
-								airaqi[i] = "良";
-							}else if(100<wea.data.forecast[i].aqi<151){
-								airaqi[i] = "轻度污染";
-							}else if(150<wea.data.forecast[i].aqi<201){
-								airaqi[i] = "中度污染";
-							}else if(200<wea.data.forecast[i].aqi<301){
-								airaqi[i] = "重度污染";
-							}else if(wea.data.forecast[i].aqi>300){
-								airaqi[i] = "严重污染";
-							}
-						} */
 						weatherStr = '<div class="mui-row vertical-center">'+
 											'<div class="mui-col-sm-10 mui-col-xs-10">'+
 											'<table>'+
@@ -540,7 +532,7 @@
 									'</div>';
 						
 					}else{
-						weatherStr = '<div class="weather-font vertical-center" style="height:149px;" onclick="tianqi()">获取天气数据出错<a onclick="tianqi()">点击重试</a>！</div>';
+						weatherStr = '<div class="weather-font vertical-center" style="height:149px;" onclick="reTianQi()">获取天气数据出错<a onclick="reTianQi()">点击重试</a>！</div>';
 					}
 					//将天气信息拼接到页面中
 					var weatherCard = document.getElementById("weatherCard");
@@ -549,7 +541,7 @@
 				error:function(xhr,type,errorThrown){
 					//异常处理；
 					console.log(type);
-					weatherStr = '<div class="weather-font vertical-center" style="height:149px;" onclick="tianqi()">获取天气数据出错<a onclick="tianqi()">点击重试</a>！</div>';
+					weatherStr = '<div class="weather-font vertical-center" style="height:149px;" onclick="reTianQi()">获取天气数据出错<a onclick="reTianQi()">点击重试</a>！</div>';
 					//将天气信息拼接到页面中
 					var weatherCard = document.getElementById("weatherCard");
 					weatherCard.innerHTML = weatherStr;
@@ -567,7 +559,10 @@
 		
 		//动态加载发现内容,为了减少主页加载时间过长，加载内容方法绑定到发现按钮
 		var faxianBtn = document.getElementById("faxianBtn");
-		faxianBtn.addEventListener("tap",function () {
+		faxianBtn.addEventListener("tap",function(){
+			selectRecommend();
+		});
+		function selectRecommend() {
 			var str1 = '<div class="spinner"></div>';
 			//进入页面加载动画，css样式：loading.css
 			document.getElementById('faxianContent').innerHTML = str1;
@@ -635,9 +630,12 @@
 				error:function(xhr,type,errorThrown){
 					//异常处理；
 					console.log(type);
+					str = '<div class="weather-font vertical-center" style="height:149px;" onclick="selectRecommend()">获取数据出错,<a onclick="selectRecommend()">点击重试</a>！</div>'
+					document.getElementById('faxianContent').innerHTML = str;
+					
 				}
 			});
-		});
+		}
 		
 		//美食分类对应的发现
 		var meiShiBtn = document.getElementById('meishi');
@@ -665,8 +663,6 @@
 			selectByClass(5);
 		});
 		
-		
-		
 		//根据对应的分类值显示对应的信息
 		function selectByClass(recommendClass){
 			window.location.href=basePath+"travelRecommend/jump?class="+recommendClass; 
@@ -686,13 +682,9 @@
 		  interval:2000//自动轮播周期，若为0则不自动播放，默认为0；
 		});
 		
-		var btn = document.getElementById("jump");
-		//监听点击事件
-		btn.addEventListener("tap",function () {
-		  alert("tap event trigger");
-		});
-		//触发submit按钮的点击事件
-		/* mui.trigger(btn,'tap'); */
+		
+		
+		/////////////////////////////////////////////////////////////////////////
 		/* 签到按钮初始化 */
 		mui(document.body).on('tap', '.mui-btn', function(e) {
 		    mui(this).button('loading');
