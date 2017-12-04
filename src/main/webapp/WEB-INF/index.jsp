@@ -274,7 +274,8 @@
 						<div class="mui-indicator"></div>
 					</div>
 				</div>
-				<div class="mui-card">
+				<div id="youJiContent">
+					<div class="mui-card">
 					<!--页眉，放置标题-->
 					<div class="mui-card-header mui-card-media">
 						<img src="<c:url value='/resources/img/test.png'/>" style="border-radius:50%"/>
@@ -343,6 +344,7 @@
 					<div class="mui-card-content mui-card-media" style="height:40vw;background-image:url(<c:url value='/resources/img/test.png'/>)">内容区</div>
 					<!--页脚，放置补充信息或支持的操作-->
 					<div class="mui-card-footer">页脚</div>
+				</div>
 				</div>
 			</div>
 			<!-- 我的 -->
@@ -426,6 +428,9 @@
 								case "晴": 
 									weatherIcon[i] = "icon-sun";
 									break;
+								case "晴间多云": 
+									weatherIcon[i] = "icon-icon-test1";
+									break;
 								case "多云":
 									weatherIcon[i] = "icon-icon-test1";
 									break;
@@ -498,7 +503,7 @@
 											'<div class="mui-col-sm-10 mui-col-xs-10">'+
 											'<table>'+
 												'<tr>'+
-													'<td rowspan="2" class="font-40">'+wea.HeWeather6[0].daily_forecast[0].tmp_max+'°C</td>'+
+													'<td rowspan="2" class="font-40">'+Math.round((parseInt(wea.HeWeather6[0].daily_forecast[0].tmp_max)+parseInt(wea.HeWeather6[0].daily_forecast[0].tmp_min))/2)+'°C</td>'+
 													'<td class="weather-font" >南京市</td>'+
 												'</tr>'+
 												'<tr>'+
@@ -671,16 +676,64 @@
 		
 		
 		
-		
-		
-		
-		
 		///////////////////////////////////////////////////////////////////////
 		//游记：获得slider插件对象
 		var gallery1 = mui('#youJiSlider');
 		gallery1.slider({
 		  interval:2000//自动轮播周期，若为0则不自动播放，默认为0；
 		});
+		//动态加载发现内容,为了减少主页加载时间过长，加载内容方法绑定到发现按钮
+		var youjiBtn = document.getElementById("youjiBtn");
+		youjiBtn.addEventListener("tap",function(){
+			selectArticle();
+		});
+		
+		//游记：获取所有的游记列表
+		function selectArticle(){
+			var loadStr = '<div class="spinner"></div>';
+			//进入页面加载动画，css样式：loading.css
+			document.getElementById('youJiContent').innerHTML = loadStr;
+			//游记内容卡片拼接
+			var contentStr = "";
+			//显示“置顶”消息
+			var zhiDing = [];
+			mui.ajax(basePath+"travelArticle/select",{
+				dataType:'json',//服务器返回json格式数据
+				type:'post',//HTTP请求类型
+				timeout:10000,//超时时间设置为10秒；
+				headers:{'Content-Type':'application/x-www-form-urlencoded'},
+				success:function(data){
+					//consle.log(data.travelArticleList);
+					for(var i = 0; i < data.travelArticleList.length; i++){
+						if(data.travelArticleList[i].topFlg == "0"){
+							zhiDing[i] = '<span style="font-size:14px;border:1px #C0C0C2 solid;padding:1px;margin-left:4px;border-radius:3px;color:#8f8f94;float:right;">置顶</span>';
+						}else{
+							zhiDing[i] = ' ';
+						}
+						console.log(zhiDing[i]);
+						contentStr += '<div class="mui-card">'+
+									 '<div class="mui-card-header mui-card-media">'+
+									 '<img src="'+data.travelArticleList[i].travelUser.headPortrait+'" style="border-radius:50%"/>'+zhiDing[i]+
+									 '<div class="mui-media-body">'+data.travelArticleList[i].travelUser.name+'<p>发表于 '+data.travelArticleList[i].time+'</p>'+
+									 '</div>'+
+									 '</div>'+
+									 '<div class="mui-card-content mui-card-media" style="height:40vw;background-image:url('+data.travelArticleList[i].pictureMain+')">'+data.travelArticleList[i].title+'</div>'+
+									 '<div class="mui-card-footer">页脚</div>'+
+								     '</div>';
+					}
+					setTimeout(function(){
+						document.getElementById('youJiContent').innerHTML = contentStr;
+					},2000);
+					
+				},
+				error:function(xhr,type,errorThrown){
+					//异常处理；
+					console.log(type);
+					str = '<div class="weather-font vertical-center" style="height:149px;" onclick="selectArticle()">获取数据出错,<a onclick="selectRecommend()">点击重试</a>！</div>'
+					document.getElementById('youJiContent').innerHTML = str;
+				}
+			});
+		}
 		
 		
 		

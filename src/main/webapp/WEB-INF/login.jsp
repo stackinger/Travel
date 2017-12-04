@@ -49,8 +49,8 @@
 			var username = document.getElementById("userName").value;
 			var password = document.getElementById("password").value;
 			if(username!="" && password!=""){
-				/* 登录按钮点击显示登陆中 */
-				document.getElementById("loginBtn").innerHTML="登陆中";
+				/* 登录按钮点击显示登录中 */
+				document.getElementById("loginBtn").innerHTML="登录中";
 				document.getElementById("loginBtn").disabled="true";
 				
 				mui.ajax(basePath+"travelUser/login",{
@@ -66,11 +66,11 @@
 						//服务器返回响应，根据响应结果，分析是否登录成功；
 						if(data.result == 0){
 							window.location.href=basePath+"menu/index"; 
-							document.getElementById("loginBtn").innerHTML="登陆";
+							document.getElementById("loginBtn").innerHTML="登录";
 							document.getElementById("loginBtn").disabled=false;
 						}else{
 							mui.toast("用户名或密码错误");
-							document.getElementById("loginBtn").innerHTML="登陆";
+							document.getElementById("loginBtn").innerHTML="登录";
 							document.getElementById("loginBtn").disabled=false;
 						}
 					},

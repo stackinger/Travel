@@ -1,11 +1,6 @@
 package com.travel.controller;
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
@@ -17,7 +12,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.io.IOUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -135,7 +129,7 @@ public class UtilController {
 	  	//这里转换为String，带上包名，怕引错包
 	  	String result = org.apache.commons.io.IOUtils.toString(input,"utf-8");
 	  	//输出
-	  	System.out.println(result);
+	  	//System.out.println(result);
 	    map.put("weather", result);
 		return JSON.toJSONString(map); 
 	}

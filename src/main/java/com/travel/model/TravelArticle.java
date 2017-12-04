@@ -2,6 +2,8 @@ package com.travel.model;
 
 import java.util.Date;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 public class TravelArticle {
     private Integer id;
 
@@ -13,6 +15,7 @@ public class TravelArticle {
 
     private String pictureMain;
 
+    @JSONField (format="yyyy-MM-dd HH:mm")
     private Date time;
 
     private String articleClass;
@@ -38,6 +41,9 @@ public class TravelArticle {
     private Date updateTime;
 
     private String content;
+    
+    //用户（文章作者）
+    private TravelUser travelUser;
 
     public Integer getId() {
         return id;
@@ -182,4 +188,13 @@ public class TravelArticle {
     public void setContent(String content) {
         this.content = content == null ? null : content.trim();
     }
+
+	public TravelUser getTravelUser() {
+		return travelUser;
+	}
+
+	public void setTravelUser(TravelUser travelUser) {
+		this.travelUser = travelUser;
+	}
+    
 }

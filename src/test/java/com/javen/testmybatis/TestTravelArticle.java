@@ -35,7 +35,7 @@ public class TestTravelArticle {
         article.setAdoptFlg("0");
         List<TravelArticle> list = travelArticleService.selectBySelective(article);
         System.out.println(list.size());
-        
-        
+        System.out.println(list.get(0).getTravelUser().getHeadPortrait());
+           
     }  
 }  

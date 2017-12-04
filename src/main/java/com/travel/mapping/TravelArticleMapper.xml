@@ -21,6 +21,29 @@
     <result column="update_id" property="updateId" jdbcType="VARCHAR" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
   </resultMap>
+  <!-- 文章添加个人信息 -->
+  <resultMap id="ExtendResultMap" type="com.travel.model.TravelArticle" >
+    <id column="a_id" property="id" jdbcType="INTEGER" />
+    <result column="a_article_id" property="articleId" jdbcType="VARCHAR" />
+    <result column="a_title" property="title" jdbcType="VARCHAR" />
+    <result column="a_author_account" property="authorAccount" jdbcType="VARCHAR" />
+    <result column="a_picture_main" property="pictureMain" jdbcType="VARCHAR" />
+    <result column="a_time" property="time" jdbcType="TIMESTAMP" />
+    <result column="a_article_class" property="articleClass" jdbcType="CHAR" />
+    <result column="a_praise" property="praise" jdbcType="INTEGER" />
+    <result column="a_stamp" property="stamp" jdbcType="INTEGER" />
+    <result column="a_top_flg" property="topFlg" jdbcType="CHAR" />
+    <result column="a_adopt_flg" property="adoptFlg" jdbcType="CHAR" />
+    <result column="a_adopt_reason" property="adoptReason" jdbcType="VARCHAR" />
+    <result column="a_del_flg" property="delFlg" jdbcType="CHAR" />
+    <association property="travelUser" javaType="com.travel.model.TravelUser">
+    <id column="u_id" property="id" jdbcType="INTEGER" />
+	    <result column="u_account" property="account" jdbcType="VARCHAR" />
+	    <result column="u_name" property="name" jdbcType="VARCHAR" />
+	    <result column="u_head_portrait" property="headPortrait" jdbcType="VARCHAR" />
+	    <result column="u_del_flg" property="delFlg" jdbcType="CHAR" />
+    </association>
+  </resultMap>
   <sql id="Base_Column_List" >
     id, article_id, title, author_account, picture_main, time, article_class, content, praise, 
     stamp, top_flg, adopt_flg, adopt_reason, del_flg, create_id, create_time, update_id, 
@@ -271,12 +294,36 @@
   </update>
   
   <!-- 根据条件查询出文章列表，查询条件待定,根据置顶，发布时间排序 -->
-  <select id="selectBySelective" parameterType="com.travel.model.TravelArticle" resultMap="BaseResultMap">
+  <select id="selectBySelective" parameterType="com.travel.model.TravelArticle" resultMap="ExtendResultMap">
   	SELECT
-    <include refid="General_List" />
-    FROM travel_article
-    WHERE del_flg = #{delFlg,jdbcType=CHAR}
-    AND adopt_flg = #{adoptFlg,jdbcType=CHAR}
+    A.id as a_id,
+    A.article_id as a_article_id,
+    A.title as a_title,
+    A.author_account as a_author_account,
+    A.picture_main as a_picture_main,
+    A.time as a_time,
+    A.article_class as a_article_class,
+    A.praise as a_praise,
+    A.stamp as a_stamp,
+    A.top_flg as a_top_flg,
+    A.adopt_flg as a_adopt_flg,
+    A.adopt_flg as a_adopt_reason,
+    A.del_flg as a_del_flg,
+    U.id as u_id,
+	U.account as u_account,
+	U.name as u_name,
+	U.head_portrait as u_head_portrait,
+	U.del_flg as u_del_flg
+    FROM travel_article A
+    LEFT JOIN travel_user U ON A.author_account = U.account
+    <where>
+    	<if test="delFlg != null">
+    		AND A.del_flg = #{delFlg,jdbcType=CHAR}
+    	</if>
+    	<if test="adoptFlg != null">
+    		AND A.adopt_flg = #{adoptFlg,jdbcType=CHAR}
+    	</if>
+    </where>
     ORDER BY top_flg,time DESC
   </select>
 </mapper>
