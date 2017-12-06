@@ -72,20 +72,24 @@ public class UtilController {
 					//如果名称不为“”,说明该文件存在，否则说明该文件不存在 
 					if(myFileName.trim() !=""){ 
 						System.out.println(myFileName); 
-						//重命名上传后的文件名 
+						//重命名上传后的文件名 ,加“upload/”为了上传到upload文件夹下
 						/*String fileName = "upload/" + file.getOriginalFilename(); */
 						String fileName = "upload/" + System.currentTimeMillis() + myFileName.substring(myFileName.lastIndexOf("."), myFileName.length());
+						//前端显示路径，因为前端页面在admin文件夹下，需要跳出两层文件夹才能找到upload文件夹下的图片
+						String fontFileName = "../../upload/" + System.currentTimeMillis() + myFileName.substring(myFileName.lastIndexOf("."), myFileName.length());
 						//定义上传路径 
 						String appRoot = request.getSession().getServletContext().getRealPath("") + File.separator;
-						System.out.println(appRoot);
+						System.out.println("appRoot:" + appRoot);
 						/*String appRoot = "E:/workspace/Travel/src/main/webapp/";*/
 						String path = appRoot + fileName; 
+						System.out.println("fileName:" + fileName);
+						System.out.println("path:" + path);
 						File localFile = new File(path); 
 						if(!localFile.exists()) { 
 							localFile.mkdirs(); 
 							} try { 
 								file.transferTo(localFile); 
-								data.add(fileName);
+								data.add(fontFileName);
 								} catch (Exception e) { 
 									e.printStackTrace(); 
 									map.put("errno", 1); 

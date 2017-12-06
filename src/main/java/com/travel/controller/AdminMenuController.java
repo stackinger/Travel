@@ -20,7 +20,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping("admin/menu")  
 public class AdminMenuController {  
 	/*private static Logger log=LoggerFactory.getLogger(MenuController.class);*/
-     
+    
+	/**
+	 * 跳转到后台管理主页
+	 */
+	@RequestMapping(value="/index",method=RequestMethod.GET)  
+    public String adminIndex(HttpServletRequest request){  
+        
+        return "admin/AdminIndex";  
+    }  
+	
     
     @RequestMapping(value="/test",method=RequestMethod.GET)  
     public String index(HttpServletRequest request){  
