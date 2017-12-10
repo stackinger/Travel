@@ -74,9 +74,11 @@ public class UtilController {
 						System.out.println(myFileName); 
 						//重命名上传后的文件名 ,加“upload/”为了上传到upload文件夹下
 						/*String fileName = "upload/" + file.getOriginalFilename(); */
+						//相对路径
 						String fileName = "upload/" + System.currentTimeMillis() + myFileName.substring(myFileName.lastIndexOf("."), myFileName.length());
-						//前端显示路径，因为前端页面在admin文件夹下，需要跳出两层文件夹才能找到upload文件夹下的图片
-						String fontFileName = "../../upload/" + System.currentTimeMillis() + myFileName.substring(myFileName.lastIndexOf("."), myFileName.length());
+						//绝对路径用于前端显示
+						String fontFileName = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
+					            				+ request.getContextPath() + "/upload/" + System.currentTimeMillis() + myFileName.substring(myFileName.lastIndexOf("."), myFileName.length());
 						//定义上传路径 
 						String appRoot = request.getSession().getServletContext().getRealPath("") + File.separator;
 						System.out.println("appRoot:" + appRoot);
