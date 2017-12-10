@@ -96,6 +96,18 @@ public class TravelRecommendController {
         return "selectRecommend";  
     }  
 	
+	/**
+	* @Title: selectByClass 
+	* @Description: 跳转到推荐详情页
+	* @param @param request
+	* @return String    返回类型 
+	 */
+	@RequestMapping(value="/detail",method=RequestMethod.GET)  
+    public String recommendDetail(HttpServletRequest request){
+		
+		return "recommendDetail";
+	}
+	
 	
 	
   

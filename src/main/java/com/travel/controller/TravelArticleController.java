@@ -49,5 +49,18 @@ public class TravelArticleController {
     	result.put("travelArticleList", travelArticleList);
         return JSON.toJSONString(result);  
     }  
+	
+	/**
+	* @Title: selectAllArticle 
+	* @Description: 跳转到文章详细页面
+	* @param @param request
+	* @param @return    设定文件 
+	* @return String    返回类型 
+	 */
+	@RequestMapping(value="/detail",method=RequestMethod.GET)  
+    public String articleDetail(HttpServletRequest request){ 
+		
+        return "ArticleDetail";  
+    }  
   
 }  

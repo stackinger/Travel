@@ -19,11 +19,14 @@
 	</head>
 	<body>
 		<header class="mui-bar mui-bar-nav">
+			<a class="mui-icon mui-icon-back mui-pull-left" href="#" onclick="javascript :history.back(-1);"></a>
 			<h1 id="titleHead" class="mui-title"">分类</h1>
 		</header>
 		<div id="content" class="mui-content">
 		</div>
 	</body>
+	
+	<script type="text/javascript" src="../js/common.js"></script>
 	<script type="text/javascript">
 	//获取并且显示对应的分类信息
 	xianshi();
@@ -86,6 +89,7 @@
 		},2000)
 	}
 	
+	//标题显示对应的分类信息
 	var className = "${className}";
 	document.getElementById("titleHead").innerHTML = className;
 	</script>

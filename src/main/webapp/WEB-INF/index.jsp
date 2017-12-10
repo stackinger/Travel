@@ -386,7 +386,7 @@
 	</body>
 	<!-- <script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script> -->
 	<script src="<c:url value='/resources/js/mui.js'/>"></script>
-	<script src="../js/common.js"></script>
+	<script type="text/javascript" src="../js/common.js"></script>
 	<script type="text/javascript">
 		mui.init();
 		/* var basePath = "http://192.168.31.149:8080/Travel/" */
@@ -418,7 +418,7 @@
 					//服务器返回响应，根据响应结果，显示天气信息；
 					//将JSON字符串转化为JSON对象
 					var wea = JSON.parse(data.weather);
-					//console.log(data.weather);
+					console.log(data.weather);
 					//console.log("状态码："+wea.HeWeather6[0].status);
 					//接口返回状态码，ok：调用成功；其他：调用失败;
 					if(wea.HeWeather6[0].status=="ok"){
