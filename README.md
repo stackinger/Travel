@@ -10,30 +10,30 @@ tags: java,javascript,Hybrid App,wangEditor
 ### 客户端介绍
 客户端现阶段在移动设备的网页开发阶段，采用mui框架(因为技术调查期间，该框架可直接用HBuilder进行app的打包，也就是混合开发Hybrid App)加原生js(jquery对移动设备来说体积太大了，zepto提供的功能常用的mui里都有封装，所以选择原生js)，考虑在移动设备上使用富文本编辑器编写文章的不便，游记文章编写功能暂时放在PC端。以下是部分网页截图展示(参考)，Hybrid App正在开发中：
 1.登录：
-http://github.com/stackinger/Travel/raw/master/README/登录.png
+![image](http://github.com/stackinger/Travel/raw/master/README/登录.png)
 
 2.首页：
-http://github.com/stackinger/Travel/raw/master/README/首页.png
+![image](http://github.com/stackinger/Travel/raw/master/README/首页.png)
 
 3.发现：
-http://github.com/stackinger/Travel/raw/master/README/发现.png
+![image](http://github.com/stackinger/Travel/raw/master/README/发现.png)
 
 4.游记：
-http://github.com/stackinger/Travel/raw/master/README/游记.png
+![image](http://github.com/stackinger/Travel/raw/master/README/游记.png)
 
 5.我的：
-http://github.com/stackinger/Travel/raw/master/README/我的.png
+![image](http://github.com/stackinger/Travel/raw/master/README/我的.png)
 
 6.发现详情：
-http://github.com/stackinger/Travel/raw/master/README/发现详情.png
+![image](http://github.com/stackinger/Travel/raw/master/README/发现详情.png)
 
 7.游记详情：
-http://github.com/stackinger/Travel/raw/master/README/游记详情.png
+![image](http://github.com/stackinger/Travel/raw/master/README/游记详情.png)
 
 ### 管理端介绍
 管理端采用了easyUI+jquery实现，整合轻量化富文本编辑工具wangEditor。提供了(暂定)内容管理、用户管理、商品管理和订单管理(积分商城)、操作日志等功能，兼容IE8及以上的浏览器，推荐使用chrome浏览器.。
 管理端首页展示：
-http://github.com/stackinger/Travel/raw/master/README/后台主页.png
+![image](http://github.com/stackinger/Travel/raw/master/README/后台主页.png)
 
  
 ### 服务端
