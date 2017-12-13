@@ -33,7 +33,7 @@ tags: java,javascript,Hybrid App,wangEditor
 ### 管理端介绍
 管理端采用了easyUI+jquery实现，整合轻量化富文本编辑工具wangEditor。提供了(暂定)内容管理、用户管理、商品管理和订单管理(积分商城)、操作日志等功能，兼容IE8及以上的浏览器，推荐使用chrome浏览器.。
 管理端首页展示：
-![image](http://github.com/stackinger/Travel/raw/master/README/后台主页.png)
+![image](http://github.com/stackinger/Travel/raw/master/README/后台主页.png) 
 
  
 ### 服务端
