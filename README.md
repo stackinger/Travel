@@ -10,7 +10,7 @@ tags: java,javascript,Hybrid App,wangEditor
 ### 客户端介绍
 客户端现阶段在移动设备的网页开发阶段，采用mui框架(因为技术调查期间，该框架可直接用HBuilder进行app的打包，也就是混合开发Hybrid App)加原生js(jquery对移动设备来说体积太大了，zepto提供的功能常用的mui里都有封装，所以选择原生js)，考虑在移动设备上使用富文本编辑器编写文章的不便，游记文章编写功能暂时放在PC端。以下是部分网页截图展示(参考)，Hybrid App正在开发中：
 1.登录：
-![image](http://github.com/stackinger/Travel/raw/master/README/login.png)
+![image](http://github.com/stackinger/Travel/raw/master/README/login.jpg)
 
 2.首页：
 ![image](http://github.com/stackinger/Travel/raw/master/README/index.png)
@@ -37,7 +37,8 @@ tags: java,javascript,Hybrid App,wangEditor
 
  
 ### 服务端
-服务端采用SSM(Spring+SpringMVC+Mybatis)框架进行开发，使用maven管理jar包(注意，因为国内网络环境的问题，推荐使用阿里云maven仓库http://maven.aliyun.com/nexus/content/groups/public)，框架部分具体不再赘述。特此感谢博主“黑天鹅Coding”，SSM框架整合教程地址：http://www.cnblogs.com/zyw-205520/p/4771253.html
+服务端采用SSM(Spring+SpringMVC+Mybatis)框架进行开发，使用maven管理jar包(注意，因为国内网络环境的问题，推荐使用阿里云maven仓库http://maven.aliyun.com/nexus/content/groups/public)
+框架部分具体不再赘述。特此感谢博主“黑天鹅Coding”，SSM框架整合教程地址：http://www.cnblogs.com/zyw-205520/p/4771253.html
 
 ## 数据库
 mysql-installer-community-5.7.12.0
