@@ -384,7 +384,7 @@
 			</div>
 		</div>
 	</body>
-	<!-- <script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script> -->
+	<script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
 	<script src="<c:url value='/resources/js/mui.js'/>"></script>
 	<script type="text/javascript" src="../js/common.js"></script>
 	<script type="text/javascript">
@@ -692,7 +692,7 @@
 		function selectArticle(){
 			var loadStr = '<div class="spinner"></div>';
 			//进入页面加载动画，css样式：loading.css
-			document.getElementById('youJiContent').innerHTML = loadStr;
+			$('#youJiContent').html(loadStr);
 			//游记内容卡片拼接
 			var contentStr = "";
 			//显示“置顶”消息
@@ -703,15 +703,14 @@
 				timeout:10000,//超时时间设置为10秒；
 				headers:{'Content-Type':'application/x-www-form-urlencoded'},
 				success:function(data){
-					//consle.log(data.travelArticleList);
 					for(var i = 0; i < data.travelArticleList.length; i++){
 						if(data.travelArticleList[i].topFlg == "0"){
 							zhiDing[i] = '<span style="font-size:14px;border:1px #C0C0C2 solid;padding:1px;margin-left:4px;border-radius:3px;color:#8f8f94;float:right;">置顶</span>';
 						}else{
 							zhiDing[i] = ' ';
 						}
-						console.log(zhiDing[i]);
-						contentStr += '<div class="mui-card">'+
+						//console.log(zhiDing[i]);
+						contentStr += '<div class="mui-card youji-card" data-articleId='+data.travelArticleList[i].articleId+'>'+
 									 '<div class="mui-card-header mui-card-media">'+
 									 '<img src="'+data.travelArticleList[i].travelUser.headPortrait+'" style="border-radius:50%"/>'+zhiDing[i]+
 									 '<div class="mui-media-body">'+data.travelArticleList[i].travelUser.name+'<p>发表于 '+data.travelArticleList[i].time+'</p>'+
@@ -721,16 +720,21 @@
 									 '<div class="mui-card-footer">页脚</div>'+
 								     '</div>';
 					}
-					setTimeout(function(){
-						document.getElementById('youJiContent').innerHTML = contentStr;
-					},2000);
 					
+					setTimeout(function(){
+						$('#youJiContent').html(contentStr);
+						$('.youji-card').click(function(){
+							//根据自定义属性data-articleId获取文章ID
+							var articleId = $(this).attr('data-articleId');
+							location.href=basePath+"travelArticle/detail/"+articleId;
+						});
+					},2000);
 				},
 				error:function(xhr,type,errorThrown){
 					//异常处理；
 					console.log(type);
 					str = '<div class="weather-font vertical-center" style="height:149px;" onclick="selectArticle()">获取数据出错,<a onclick="selectRecommend()">点击重试</a>！</div>'
-					document.getElementById('youJiContent').innerHTML = str;
+					$('#youJiContent').html(str);
 				}
 			});
 		}

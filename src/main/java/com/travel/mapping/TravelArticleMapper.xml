@@ -30,6 +30,7 @@
     <result column="a_picture_main" property="pictureMain" jdbcType="VARCHAR" />
     <result column="a_time" property="time" jdbcType="TIMESTAMP" />
     <result column="a_article_class" property="articleClass" jdbcType="CHAR" />
+    <result column="a_content" property="content" jdbcType="LONGVARCHAR" />
     <result column="a_praise" property="praise" jdbcType="INTEGER" />
     <result column="a_stamp" property="stamp" jdbcType="INTEGER" />
     <result column="a_top_flg" property="topFlg" jdbcType="CHAR" />
@@ -293,7 +294,7 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
   
-  <!-- 根据条件查询出文章列表，查询条件待定,根据置顶，发布时间排序 -->
+  <!-- 根据条件查询出文章列表，查询条件(文章ID),根据置顶，发布时间排序 -->
   <select id="selectBySelective" parameterType="com.travel.model.TravelArticle" resultMap="ExtendResultMap">
   	SELECT
     A.id as a_id,
@@ -303,6 +304,7 @@
     A.picture_main as a_picture_main,
     A.time as a_time,
     A.article_class as a_article_class,
+    A.content as a_content,
     A.praise as a_praise,
     A.stamp as a_stamp,
     A.top_flg as a_top_flg,
@@ -322,6 +324,9 @@
     	</if>
     	<if test="adoptFlg != null">
     		AND A.adopt_flg = #{adoptFlg,jdbcType=CHAR}
+    	</if>
+    	<if test="articleId != null">
+    		AND A.article_id = #{articleId,jdbcType=CHAR}
     	</if>
     </where>
     ORDER BY top_flg,time DESC

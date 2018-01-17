@@ -6,14 +6,15 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.travel.model.TravelArticle;
 import com.travel.service.TravelArticleService;
   
@@ -26,7 +27,7 @@ import com.travel.service.TravelArticleService;
 @Controller  
 @RequestMapping("/travelArticle")
 public class TravelArticleController {  
-	private static Logger log=LoggerFactory.getLogger(TravelArticleController.class);
+	//private static Logger log=LoggerFactory.getLogger(TravelArticleController.class);
 	 @Resource  
 	 private TravelArticleService travelArticleService;     
     
@@ -57,9 +58,26 @@ public class TravelArticleController {
 	* @param @return    设定文件 
 	* @return String    返回类型 
 	 */
-	@RequestMapping(value="/detail",method=RequestMethod.GET)  
-    public String articleDetail(HttpServletRequest request){ 
-		
+	@RequestMapping(value="/detail/{articleId}")  
+    public String articleDetail(@PathVariable(value="articleId") String articleId, HttpServletRequest request){ 
+		//根据文章ID获取文章内容等信息
+		TravelArticle travelArticle = new TravelArticle();
+    	travelArticle.setDelFlg("0");
+    	travelArticle.setAdoptFlg("0");
+    	travelArticle.setArticleId(articleId);
+    	//返回的list有且只有一篇文章的信息
+    	List<TravelArticle> travelArticleList = travelArticleService.selectBySelective(travelArticle);
+    	//根据articleId查询出文章
+    	if(travelArticleList.size()>0){
+    		//fastjson去除不要的内容属性,因为内容中的引号数字在前端转换时容易出错，放在后台处理
+    		JSONObject obj = JSON.parseObject(JSON.toJSONString(travelArticleList.get(0)));
+    		obj.remove("content");
+    		request.setAttribute("travelArticle", obj.toJSONString());
+        	request.setAttribute("articleContent", travelArticleList.get(0).getContent());
+    	}else{
+    		//TODO 如果文章不存在
+    	}
+    	
         return "ArticleDetail";  
     }  
   

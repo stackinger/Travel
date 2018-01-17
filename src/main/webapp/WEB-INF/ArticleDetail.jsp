@@ -46,8 +46,9 @@
 		</div>
 	</body>
 	
-	<script type="text/javascript" src="../js/common.js"></script>
-	<script type="text/javascript" src="../js/mui.js"></script>
+	<script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+	<script type="text/javascript" src="../../js/common.js"></script>
+	<script type="text/javascript" src="../../js/mui.js"></script>
 	<script type="text/javascript">
 	//获取所有图片路径
 	/* var imgs = document.getElementsByTagName("img");
@@ -55,6 +56,12 @@
 	    imgs[i].src = imgs[i].src.substring(0,27)+"Travel/"+imgs[i].src.substring(27,imgs[i].src.length);
 	    
 	} */
+	var a = '${travelArticle}';
+	var c = JSON.parse(a);
+	console.log("文章："+ c.title);
+	//console.log("文章："+ a); */
+	var b = '${articleContent}';
+	$('#content').html(b);
 	</script>
 </html>
 
